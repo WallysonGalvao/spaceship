@@ -1,5 +1,4 @@
 import React from 'react';
-import { Text } from 'react-native';
 
 import Mercury from '../../assets/planets/mercury.svg';
 
@@ -15,18 +14,19 @@ import {
   CustomText,
 } from './styles';
 
-const Card: React.FC = () => {
+interface Props {
+  name: string;
+  description: string;
+}
+
+const Card: React.FC<Props> = ({ name, description }) => {
   return (
     <Container>
       <ImageContainer>
         <Mercury />
       </ImageContainer>
-      <Name>Mercúrio</Name>
-      <Description>
-        É o planeta mais rápido do Sistema Solar e também é o mais próximo do
-        sol. Da superfície de Mercúrio, o sol aparenta ser três vezes maior que
-        quando visto da Terra. Um dia em Mercúrio leva 59 dias terrestres.
-      </Description>
+      <Name>{name}</Name>
+      <Description>{description}</Description>
       <Footer>
         <Point />
         <CustomButton>
