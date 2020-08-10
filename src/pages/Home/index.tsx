@@ -27,7 +27,7 @@ const Home: React.FC = () => {
 
       <Button
         title="Iniciar missão"
-        onPress={() => navigation.navigate('Timer', { missionName: label })}
+        onPress={() => navigation.navigate('New', { missionName: label })}
       />
     </Page>
   );
