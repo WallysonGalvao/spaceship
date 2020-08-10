@@ -7,6 +7,7 @@
 </h4>
 
 <p align="center">
+  <!-- 
   <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/WallysonGalvao/spaceship">
 
   <img alt="Repository size" src="https://img.shields.io/github/repo-size/WallysonGalvao/spaceship">
@@ -17,7 +18,7 @@
 
   <a href="https://github.com/WallysonGalvao/spaceship/issues">
     <img alt="Repository issues" src="https://img.shields.io/github/issues/WallysonGalvao/spaceship">
-  </a>
+  </a> -->
 
   <img alt="License" src="https://img.shields.io/badge/license-MIT-brightgreen">
 </p>
@@ -37,9 +38,9 @@ Este é o terceiro projeto da **[umpontoseis](https://umpontoseis.com/)**, a ide
 
 ## 🎨 Layout
 
-<!-- <p align="center">
-    <img alt="spaceship" title="#spaceship" src=".github/app.png" width="720px" />
-</p> -->
+<p align="center">
+    <img alt="spaceship" title="#spaceship" src=".github/app.jpg" width="720px" />
+</p>
 
 Você pode utilizar a seguinte URL para visualizar todas as telas: [Visualizar](https://www.figma.com/community/file/871911270417939544/Solar-System---Jonas-Milan)
 
