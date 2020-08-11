@@ -3,6 +3,7 @@ import React from 'react';
 import Mercury from '../../assets/planets/mercury.svg';
 
 import Point from '../Point';
+import PlanetIcon from '../PlanetIcon';
 
 import {
   Container,
@@ -16,13 +17,15 @@ import {
 
 interface Props {
   name: string;
+  icon: string;
   description: string;
 }
 
-const Card: React.FC<Props> = ({ name, description }) => {
+const Card: React.FC<Props> = ({ name, icon, description }) => {
   return (
     <Container>
       <ImageContainer>
+        {/* <PlanetIcon icon={icon} /> */}
         <Mercury />
       </ImageContainer>
       <Name>{name}</Name>

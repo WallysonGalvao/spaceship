@@ -6,12 +6,6 @@ import Card from '../../components/Card';
 
 import planets from '../../res/planets';
 
-interface PlanetProp {
-  id: number;
-  name: string;
-  description: string;
-}
-
 const Planets: React.FC = () => {
   return (
     <Page title="Sistema Solar">
@@ -20,8 +14,8 @@ const Planets: React.FC = () => {
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={{ alignItems: 'center' }}
       >
-        {planets.map(({ id, name, description }: PlanetProp) => (
-          <Card key={id} name={name} description={description} />
+        {planets.map(({ id, name, icon, description }) => (
+          <Card key={id} name={name} icon={icon} description={description} />
         ))}
       </ScrollView>
     </Page>
