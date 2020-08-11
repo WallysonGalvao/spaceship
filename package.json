@@ -22,6 +22,7 @@
     "react-native-safe-area-context": "^3.1.4",
     "react-native-screens": "^2.10.1",
     "react-native-segmented-control-tab": "^3.4.1",
+    "react-native-snap-carousel": "^4.0.0-beta.5",
     "react-native-svg": "^12.1.0",
     "react-native-vector-icons": "^7.0.0",
     "styled-components": "^5.1.1"
@@ -32,6 +33,7 @@
     "@react-native-community/eslint-config": "^1.1.0",
     "@types/jest": "^25.2.3",
     "@types/react-native": "^0.63.2",
+    "@types/react-native-snap-carousel": "^3.8.2",
     "@types/react-native-vector-icons": "^6.4.5",
     "@types/react-test-renderer": "^16.9.2",
     "@types/styled-components": "^5.1.2",

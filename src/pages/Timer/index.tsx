@@ -10,13 +10,14 @@ import { MissionName, Time, TimeContainer } from './styles';
 
 interface IParams {
   missionName: string;
+  selectedTimer: number;
 }
 
 const Timer: React.FC = () => {
   const navigation = useNavigation();
   const route = useRoute();
   const routeParams = route.params as IParams;
-  const { missionName } = routeParams;
+  const { missionName, selectedTimer } = routeParams;
 
   return (
     <Page>
@@ -26,7 +27,7 @@ const Timer: React.FC = () => {
         <Venus />
       </TimeContainer>
 
-      <Time>44:59</Time>
+      <Time>{selectedTimer}</Time>
 
       <Button title="Abandonar missão :(" onPress={() => navigation.goBack()} />
     </Page>
