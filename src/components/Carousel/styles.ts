@@ -1,12 +1,11 @@
 import styled from 'styled-components/native';
 
 export const Container = styled.View`
-  width: 100px;
-  height: 110px;
+  height: 100px;
   align-items: center;
   margin-bottom: 10px;
 
-  bottom: 15px;
+  bottom: 35px;
 `;
 
 export const ArrowContainer = styled.View`

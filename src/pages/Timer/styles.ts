@@ -12,15 +12,6 @@ export const MissionName = styled.Text`
   bottom: 10%;
 `;
 
-export const Time = styled.Text`
-  font-size: 32px;
-  letter-spacing: 2px;
-
-  color: #ffffff;
-
-  margin: 35px;
-`;
-
 export const TimeContainer = styled.View`
   background: transparent;
 

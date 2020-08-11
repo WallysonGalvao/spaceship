@@ -34,7 +34,7 @@ const CarouselPicker: React.FC<Props> = ({ onChangeItem }) => {
         renderItem={renderItem}
         sliderWidth={350}
         itemWidth={75}
-        containerCustomStyle={{ marginTop: 50, height: 10 }}
+        containerCustomStyle={{ marginTop: 50, height: 40 }}
         inactiveSlideShift={0}
         onSnapToItem={handleSnapToItem}
         scrollInterpolator={scrollInterpolator}
@@ -42,7 +42,7 @@ const CarouselPicker: React.FC<Props> = ({ onChangeItem }) => {
         useScrollView
       />
       <ArrowContainer>
-        <ArrowUp width={30} height={15} />
+        <ArrowUp width={13} height={6} />
       </ArrowContainer>
     </Container>
   );
