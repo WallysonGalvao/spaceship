@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import { useRoute, useNavigation } from '@react-navigation/native';
 
 import Venus from '../../assets/planets/venus.svg';
 
 import Page from '../../components/Page';
+import Countdown from '../../components/Countdown';
 import Button from '../../components/Button';
 
-import { MissionName, Time, TimeContainer } from './styles';
+import { MissionName, TimeContainer } from './styles';
 
 interface IParams {
   missionName: string;
@@ -18,18 +19,24 @@ const Timer: React.FC = () => {
   const route = useRoute();
   const routeParams = route.params as IParams;
   const { missionName, selectedTimer } = routeParams;
+  const [timer, setTimer] = useState(selectedTimer || null);
+
+  const exitMission = useCallback(() => {
+    setTimer(null);
+    navigation.goBack();
+  }, [navigation]);
 
   return (
     <Page>
       <MissionName style={{ color: '#FFF' }}>{missionName}</MissionName>
 
       <TimeContainer>
-        <Venus />
+        <Venus width={180} height={180} />
       </TimeContainer>
 
-      <Time>{selectedTimer}</Time>
+      <Countdown timer={timer} />
 
-      <Button title="Abandonar missão :(" onPress={() => navigation.goBack()} />
+      <Button title="Abandonar missão :(" onPress={exitMission} />
     </Page>
   );
 };
