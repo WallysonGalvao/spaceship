@@ -12,8 +12,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 interface Mission {
   name: string;
   time: number;
-  circle: boolean;
-  circleColor: string;
+  color: string;
 }
 
 interface TotalMissionsHour {
@@ -44,9 +43,9 @@ export const MissionProvider: React.FC = ({ children }) => {
   const [missions, setMissions] = useState<Mission[]>([]);
   const [totalMissionsHours, setTotalMissionsHours] = useState<
     TotalMissionsHour
-  >({ name: 'Tempo total', time: 0 } as TotalMissionsHour);
+  >({ name: 'Tempo total', time: 10800 } as TotalMissionsHour);
   const [completedMissions, setCompletedMissions] = useState<CompletedMissions>(
-    { name: 'Missões concluídas', total: 0 } as CompletedMissions,
+    { name: 'Missões concluídas', total: 3 } as CompletedMissions,
   );
 
   async function loadData(): Promise<void> {

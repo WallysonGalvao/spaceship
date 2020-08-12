@@ -1,9 +1,23 @@
 const convertSecondsInHour = (
   seconds: number,
-): { hour: string; minutes: string } => {
+): { hour: number; minutes: number } => {
   const secondsToHours = seconds / 3600;
-  const [hour, minutes] = secondsToHours.toString().split('.');
-  return { hour, minutes };
+
+  let hourParsed = secondsToHours;
+  let minParsed = 0;
+
+  if (secondsToHours.toString().includes('.')) {
+    const [hour, minutes] = secondsToHours.toString().split('.');
+
+    hourParsed = parseInt(hour, 10);
+    minParsed = parseInt(minutes, 10);
+
+    if (minParsed < 10) {
+      minParsed = parseInt(`${minParsed}0`, 10);
+    }
+  }
+
+  return { hour: hourParsed, minutes: minParsed };
 };
 
 export default convertSecondsInHour;

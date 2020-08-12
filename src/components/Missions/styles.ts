@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
 
 interface Props {
-  circleColor: string;
+  color: string;
 }
 
 export const Container = styled.View`
@@ -24,7 +24,7 @@ export const Right = styled.View`
 export const Circle = styled.View<Props>`
   justify-content: center;
   align-items: center;
-  background: ${props => props.circleColor};
+  background: ${props => props.color};
   width: 10px;
   height: 10px;
   border-radius: 50px;
