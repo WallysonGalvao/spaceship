@@ -1,4 +1,4 @@
-import styled from "styled-components/native";
+import styled from 'styled-components/native';
 
 interface Props {
   circleColor: string;
@@ -9,8 +9,6 @@ export const Container = styled.View`
   flex-direction: row;
   justify-content: space-between;
   margin-bottom: 15px;
-
-  /* padding-horizontal: 15px; */
 `;
 
 export const Left = styled.View`
@@ -26,7 +24,7 @@ export const Right = styled.View`
 export const Circle = styled.View<Props>`
   justify-content: center;
   align-items: center;
-  background: ${(props) => props.circleColor};
+  background: ${props => props.circleColor};
   width: 10px;
   height: 10px;
   border-radius: 50px;
@@ -34,7 +32,7 @@ export const Circle = styled.View<Props>`
 `;
 
 const CommonText = styled.Text`
-  font-family: "Montserrat_600SemiBold";
+  font-family: 'Montserrat_600SemiBold';
   font-size: 14px;
   color: #ffffff;
 `;
@@ -42,7 +40,7 @@ const CommonText = styled.Text`
 export const Name = styled(CommonText)``;
 
 export const TimeText = styled(CommonText)`
-  font-family: "Montserrat_400Regular";
+  font-family: 'Montserrat_400Regular';
 `;
 
 export const Number = styled(CommonText)``;

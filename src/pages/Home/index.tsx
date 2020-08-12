@@ -18,7 +18,7 @@ const Home: React.FC = () => {
     value: 'study',
   });
   const { label, value } = missionName;
-  const params = { missionName: label, selectedTimer };
+  const params = { missionName: label, missionValue: value, selectedTimer };
   return (
     <Page>
       <Name>Bem vinda a bordo, Rayssa!</Name>

@@ -5,12 +5,15 @@ import { StatusBar } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 
 import Routes from './routes';
+import AppProvider from './hooks';
 
 const App: React.FC = () => {
   return (
     <NavigationContainer>
       <StatusBar translucent backgroundColor="transparent" />
-      <Routes />
+      <AppProvider>
+        <Routes />
+      </AppProvider>
     </NavigationContainer>
   );
 };
