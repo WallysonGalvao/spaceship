@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import Icon from 'react-native-vector-icons/Feather';
 
 import DonutChart from '../../assets/donut-chart.svg';
@@ -7,11 +7,20 @@ import Page from '../../components/Page';
 import SegmentedButtons from '../../components/SegmentedButtons';
 import Missions from '../../components/Missions';
 
+import { useMission } from '../../hooks/mission';
+import convertSecondsInHour from '../../utils/convertSecondsInHour';
+
 import missions from '../../res/missions';
 
-import { PeriodControl, PeriodControlText } from './styles';
+import { PeriodControl, PeriodControlText, Info, CustomText } from './styles';
 
 const Mission: React.FC = () => {
+  const { completedMissions, totalMissionsHours } = useMission();
+
+  const hours = useMemo(() => {
+    return convertSecondsInHour(totalMissionsHours.time);
+  }, [totalMissionsHours.time]);
+
   return (
     <Page title="Missões">
       <SegmentedButtons />
@@ -23,16 +32,27 @@ const Mission: React.FC = () => {
       </PeriodControl>
 
       <DonutChart style={{ marginTop: 50, marginBottom: 50 }} />
-      {missions.map(({ circle, circleColor, name, time, total }) => (
+      {missions.map(({ circleColor, name, time }) => (
         <Missions
           key={name}
-          circle={circle}
           circleColor={circleColor}
           name={name}
           time={time}
-          total={total}
         />
       ))}
+
+      <Info>
+        <CustomText>{totalMissionsHours.name}</CustomText>
+        <CustomText>
+          <CustomText>{hours.hour}</CustomText> {hours.hour && 'horas '}
+          <CustomText>{hours.minutes}</CustomText> {hours.minutes && 'minutos'}
+        </CustomText>
+      </Info>
+
+      <Info>
+        <CustomText>{completedMissions.name}</CustomText>
+        <CustomText>{completedMissions.total}</CustomText>
+      </Info>
     </Page>
   );
 };

@@ -1,5 +1,4 @@
-import React from "react";
-
+import React, { useMemo } from 'react';
 import {
   Container,
   Left,
@@ -8,40 +7,32 @@ import {
   Name,
   TimeText,
   Number,
-} from "./styles";
+} from './styles';
+
+import convertSecondsInHour from '../../utils/convertSecondsInHour';
 
 interface Props {
-  circle?: boolean;
   circleColor: string;
   name: string;
-  time?: {
-    hour?: number;
-    seconds?: number;
-  };
-  total?: number;
+  time: number;
 }
 
-const Missions: React.FC<Props> = ({
-  circle,
-  circleColor,
-  name,
-  time,
-  total,
-}) => {
+const Missions: React.FC<Props> = ({ circleColor, name, time }) => {
+  const hours = useMemo(() => {
+    return convertSecondsInHour(time);
+  }, [time]);
+
   return (
     <Container>
       <Left>
-        {circle && <Circle circleColor={circleColor} />}
+        <Circle circleColor={circleColor} />
         <Name>{name}</Name>
       </Left>
       <Right>
-        {time && (
-          <TimeText>
-            <Number>{time.hour}</Number> {time.hour && "horas "}
-            <Number>{time.seconds}</Number> {time.seconds && "minutos"}
-          </TimeText>
-        )}
-        {total && <Number>{total}</Number>}
+        <TimeText>
+          <Number>{hours.hour}</Number> {hours.hour && 'horas '}
+          <Number>{hours.minutes}</Number> {hours.minutes && 'minutos'}
+        </TimeText>
       </Right>
     </Container>
   );

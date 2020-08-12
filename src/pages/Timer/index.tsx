@@ -11,6 +11,7 @@ import { MissionName, TimeContainer } from './styles';
 
 interface IParams {
   missionName: string;
+  missionValue: string;
   selectedTimer: number;
 }
 
@@ -18,7 +19,7 @@ const Timer: React.FC = () => {
   const navigation = useNavigation();
   const route = useRoute();
   const routeParams = route.params as IParams;
-  const { missionName, selectedTimer } = routeParams;
+  const { missionName, missionValue, selectedTimer } = routeParams;
   const [timer, setTimer] = useState(selectedTimer || null);
 
   const exitMission = useCallback(() => {
@@ -34,7 +35,7 @@ const Timer: React.FC = () => {
         <Venus width={180} height={180} />
       </TimeContainer>
 
-      <Countdown timer={timer} />
+      <Countdown missionValue={missionValue} timer={timer} />
 
       <Button title="Abandonar missão :(" onPress={exitMission} />
     </Page>
