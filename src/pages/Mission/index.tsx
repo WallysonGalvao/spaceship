@@ -1,10 +1,11 @@
 import React, { useMemo } from 'react';
 import Icon from 'react-native-vector-icons/Feather';
 
-import DonutChart from '../../assets/donut-chart.svg';
+import { View } from 'react-native';
 
 import Page from '../../components/Page';
 import SegmentedButtons from '../../components/SegmentedButtons';
+import Chart from '../../components/Chart';
 import Missions from '../../components/Missions';
 
 import { useMission } from '../../hooks/mission';
@@ -18,7 +19,8 @@ const Mission: React.FC = () => {
   const { completedMissions, totalMissionsHours } = useMission();
 
   const hours = useMemo(() => {
-    return convertSecondsInHour(totalMissionsHours.time);
+    const value = convertSecondsInHour(totalMissionsHours.time);
+    return value;
   }, [totalMissionsHours.time]);
 
   return (
@@ -31,27 +33,31 @@ const Mission: React.FC = () => {
         <Icon name="chevron-right" color="#FFFFFF" size={20} />
       </PeriodControl>
 
-      <DonutChart style={{ marginTop: 50, marginBottom: 50 }} />
-      {missions.map(({ circleColor, name, time }) => (
-        <Missions
-          key={name}
-          circleColor={circleColor}
-          name={name}
-          time={time}
+      <View style={{ marginTop: 50, marginBottom: 50 }}>
+        <Chart
+          missions={missions}
+          totalMissionsHours={totalMissionsHours.time}
         />
+      </View>
+
+      {missions.map(({ color, name, time }) => (
+        <Missions key={name} color={color} name={name} time={time} />
       ))}
 
       <Info>
         <CustomText>{totalMissionsHours.name}</CustomText>
         <CustomText>
           <CustomText>{hours.hour}</CustomText> {hours.hour && 'horas '}
-          <CustomText>{hours.minutes}</CustomText> {hours.minutes && 'minutos'}
+          <CustomText>{hours.minutes > 0 && hours.minutes}</CustomText>
+          {hours.minutes > 0 ? ' minutos' : ''}
         </CustomText>
       </Info>
 
       <Info>
         <CustomText>{completedMissions.name}</CustomText>
-        <CustomText>{completedMissions.total}</CustomText>
+        <CustomText style={{ marginRight: 5 }}>
+          {completedMissions.total}
+        </CustomText>
       </Info>
     </Page>
   );

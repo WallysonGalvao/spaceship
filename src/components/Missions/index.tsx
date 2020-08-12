@@ -12,26 +12,37 @@ import {
 import convertSecondsInHour from '../../utils/convertSecondsInHour';
 
 interface Props {
-  circleColor: string;
+  color: string;
   name: string;
   time: number;
 }
 
-const Missions: React.FC<Props> = ({ circleColor, name, time }) => {
+const Missions: React.FC<Props> = ({ color, name, time }) => {
   const hours = useMemo(() => {
-    return convertSecondsInHour(time);
+    const values = convertSecondsInHour(time);
+
+    const { hour, minutes } = values;
+
+    let hourText = '';
+    if (hour !== 0 && hour === 1) hourText = `${hour} hora `;
+    else if (hour !== 0 && hour > 1) hourText = `${hour} horas `;
+
+    let minutesText = '';
+    if (minutes > 0) minutesText = `${minutes} minutos`;
+
+    return { hour: hourText, minutes: minutesText };
   }, [time]);
 
   return (
     <Container>
       <Left>
-        <Circle circleColor={circleColor} />
+        <Circle color={color} />
         <Name>{name}</Name>
       </Left>
       <Right>
         <TimeText>
-          <Number>{hours.hour}</Number> {hours.hour && 'horas '}
-          <Number>{hours.minutes}</Number> {hours.minutes && 'minutos'}
+          <Number>{hours.hour}</Number>
+          <Number>{hours.minutes}</Number>
         </TimeText>
       </Right>
     </Container>

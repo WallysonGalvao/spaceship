@@ -1,21 +1,21 @@
 const missions = [
   {
-    circleColor: '#CE2949',
+    color: '#CE2949',
     name: 'study',
-    time: 0,
-    // 1,5 - 5400
+    time: 5400,
+    // 1,5 horas - 5400 segundos
   },
   {
-    circleColor: '#E08432',
+    color: '#E08432',
     name: 'exercise',
-    time: 0,
-    // 0,5 - 1800
+    time: 1800,
+    // 0,5 hora - 1800 segundos
   },
   {
-    circleColor: '#EE5F40',
+    color: '#EE5F40',
     name: 'read',
-    time: 0,
-    // 0,5 - 1800
+    time: 3600,
+    // 1 hora = 3600 segundos
   },
 ];
 
