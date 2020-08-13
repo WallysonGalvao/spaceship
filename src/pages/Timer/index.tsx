@@ -1,11 +1,11 @@
 import React, { useCallback, useState } from 'react';
 import { useRoute, useNavigation } from '@react-navigation/native';
 
-import Venus from '../../assets/planets/venus.svg';
+import Venus from '~/assets/planets/venus.svg';
 
-import Page from '../../components/Page';
-import Countdown from '../../components/Countdown';
-import Button from '../../components/Button';
+import Page from '~/components/Page';
+import Countdown from '~/components/Countdown';
+import Button from '~/components/Button';
 
 import { MissionName, TimeContainer } from './styles';
 

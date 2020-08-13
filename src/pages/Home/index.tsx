@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 
-import Page from '../../components/Page';
-import Picker from '../../components/Picker';
-import Carousel from '../../components/Carousel';
-import Button from '../../components/Button';
+import Page from '~/components/Page';
+import Picker from '~/components/Picker';
+import Carousel from '~/components/Carousel';
+import Button from '~/components/Button';
 
-import Astronaut from '../../assets/astronaut.svg';
+import Astronaut from '~/assets/astronaut.svg';
 
-import { translate } from '../../locales';
+import { translate } from '~/locales';
 
 import { Name, Question } from './styles';
 
@@ -23,7 +23,6 @@ const Home: React.FC = () => {
   const params = { missionName: label, missionValue: value, selectedTimer };
   return (
     <Page>
-      {/* <Name>Bem vinda a bordo, Rayssa!</Name> */}
       <Name>{translate('home_welcome')} Rayssa!</Name>
       <Question>Qual será nossa missão de hoje?</Question>
 

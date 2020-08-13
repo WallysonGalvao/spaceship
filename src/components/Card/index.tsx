@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Mercury from '../../assets/planets/mercury.svg';
+import Mercury from '~/assets/planets/mercury.svg';
 
 import Point from '../Point';
 import PlanetIcon from '../PlanetIcon';

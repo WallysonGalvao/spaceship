@@ -2,12 +2,14 @@ import React, { useCallback } from 'react';
 import { PickerProps } from 'react-native';
 import { Picker } from '@react-native-community/picker';
 
+import { translate } from '~/locales';
+
 import { Container } from './styles';
 
-import pickerValues from '../../res/pickerValues';
+import pickerValues from '~/res/pickerValues';
 
 interface Props extends PickerProps {
-  setMissionName(mission: { label: string; value: string }): void;
+  setMissionName(mission: { value: string }): void;
 }
 
 const CustomPicker: React.FC<Props> = ({ selectedValue, setMissionName }) => {
@@ -30,8 +32,12 @@ const CustomPicker: React.FC<Props> = ({ selectedValue, setMissionName }) => {
         }}
         onValueChange={(_, itemIndex) => handleValueChange(itemIndex)}
       >
-        {pickerValues.map(({ id, label, value }) => (
-          <Picker.Item key={id} label={label} value={value} />
+        {pickerValues.map(({ id, value }) => (
+          <Picker.Item
+            key={id}
+            label={translate(`item_${value}`)}
+            value={value}
+          />
         ))}
       </Picker>
     </Container>

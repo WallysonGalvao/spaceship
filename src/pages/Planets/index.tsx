@@ -1,10 +1,10 @@
 import React from 'react';
 import { ScrollView } from 'react-native';
 
-import Page from '../../components/Page';
-import Card from '../../components/Card';
+import Page from '~/components/Page';
+import Card from '~/components/Card';
 
-import planets from '../../res/planets';
+import planets from '~/res/planets';
 
 const Planets: React.FC = () => {
   return (

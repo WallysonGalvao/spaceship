@@ -9,7 +9,9 @@ import {
   Number,
 } from './styles';
 
-import convertSecondsInHour from '../../utils/convertSecondsInHour';
+import { translate } from '~/locales';
+
+import convertSecondsInHour from '~/utils/convertSecondsInHour';
 
 interface Props {
   color: string;
@@ -35,7 +37,7 @@ const Missions: React.FC<Props> = ({ color, name, time }) => {
     <Container>
       <Left>
         <Circle color={color} />
-        <Name>{name}</Name>
+        <Name>{translate(`item_${name}`)}</Name>
       </Left>
       <Right>
         <TimeText>

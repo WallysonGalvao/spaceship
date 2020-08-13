@@ -1,9 +1,9 @@
 import React from 'react';
 import { useNavigation, useRoute } from '@react-navigation/native';
 
-import Rocket from '../../assets/rocket.svg';
-import Chart from '../../assets/chart.svg';
-import Planet from '../../assets/planet-menu.svg';
+import Rocket from '~/assets/rocket.svg';
+import Chart from '~/assets/chart.svg';
+import Planet from '~/assets/planet-menu.svg';
 
 import { Container, Button } from './styles';
 

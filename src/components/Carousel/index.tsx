@@ -1,9 +1,9 @@
 import React, { ReactElement } from 'react';
 import Carousel from 'react-native-snap-carousel';
 
-import { scrollInterpolator, animatedStyles } from '../../utils/animations';
+import { scrollInterpolator, animatedStyles } from '~/utils/animations';
 
-import ArrowUp from '../../assets/arrow-up.svg';
+import ArrowUp from '~/assets/arrow-up.svg';
 
 import { Container, ArrowContainer, ItemContainer, ItemLabel } from './styles';
 

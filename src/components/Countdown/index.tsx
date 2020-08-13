@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo } from 'react';
 import CountDown from 'react-native-countdown-component';
-import { useMission } from '../../hooks/mission';
+import { useMission } from '~/hooks/mission';
 
 interface Props {
   timer: number | null;

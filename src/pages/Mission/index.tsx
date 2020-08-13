@@ -3,15 +3,15 @@ import Icon from 'react-native-vector-icons/Feather';
 
 import { View } from 'react-native';
 
-import Page from '../../components/Page';
-import SegmentedButtons from '../../components/SegmentedButtons';
-import Chart from '../../components/Chart';
-import Missions from '../../components/Missions';
+import Page from '~/components/Page';
+import SegmentedButtons from '~/components/SegmentedButtons';
+import Chart from '~/components/Chart';
+import Missions from '~/components/Missions';
 
-import { useMission } from '../../hooks/mission';
-import convertSecondsInHour from '../../utils/convertSecondsInHour';
+import { useMission } from '~/hooks/mission';
+import convertSecondsInHour from '~/utils/convertSecondsInHour';
 
-import missions from '../../res/missions';
+import missions from '~/res/missions';
 
 import {
   PeriodControl,
@@ -42,7 +42,7 @@ const Mission: React.FC = () => {
 
       <View
         style={{
-          marginTop: '10%',
+          marginTop: '20%',
           top: 10,
           marginBottom: '10%',
         }}
