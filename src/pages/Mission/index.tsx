@@ -13,7 +13,14 @@ import convertSecondsInHour from '../../utils/convertSecondsInHour';
 
 import missions from '../../res/missions';
 
-import { PeriodControl, PeriodControlText, Info, CustomText } from './styles';
+import {
+  PeriodControl,
+  PeriodControlText,
+  Info,
+  CustomText,
+  TextLeft,
+  Number,
+} from './styles';
 
 const Mission: React.FC = () => {
   const { completedMissions, totalMissionsHours } = useMission();
@@ -33,7 +40,13 @@ const Mission: React.FC = () => {
         <Icon name="chevron-right" color="#FFFFFF" size={20} />
       </PeriodControl>
 
-      <View style={{ marginTop: 50, marginBottom: 50 }}>
+      <View
+        style={{
+          marginTop: '10%',
+          top: 10,
+          marginBottom: '10%',
+        }}
+      >
         <Chart
           missions={missions}
           totalMissionsHours={totalMissionsHours.time}
@@ -45,19 +58,17 @@ const Mission: React.FC = () => {
       ))}
 
       <Info>
-        <CustomText>{totalMissionsHours.name}</CustomText>
+        <TextLeft>{totalMissionsHours.name}</TextLeft>
         <CustomText>
-          <CustomText>{hours.hour}</CustomText> {hours.hour && 'horas '}
-          <CustomText>{hours.minutes > 0 && hours.minutes}</CustomText>
+          <Number>{hours.hour}</Number> {hours.hour > 1 ? 'horas ' : 'hora '}
+          <Number>{hours.minutes > 0 && hours.minutes}</Number>
           {hours.minutes > 0 ? ' minutos' : ''}
         </CustomText>
       </Info>
 
       <Info>
-        <CustomText>{completedMissions.name}</CustomText>
-        <CustomText style={{ marginRight: 5 }}>
-          {completedMissions.total}
-        </CustomText>
+        <TextLeft>{completedMissions.name}</TextLeft>
+        <Number style={{ marginRight: 5 }}>{completedMissions.total}</Number>
       </Info>
     </Page>
   );

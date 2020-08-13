@@ -20,6 +20,7 @@ export const ItemContainer = styled.View`
 `;
 
 export const ItemLabel = styled.Text`
+  font-family: 'Montserrat-Medium';
   color: #ffffff;
-  font-size: 24px;
+  font-size: 21px;
 `;

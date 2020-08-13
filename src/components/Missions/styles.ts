@@ -32,7 +32,7 @@ export const Circle = styled.View<Props>`
 `;
 
 const CommonText = styled.Text`
-  font-family: 'Montserrat_600SemiBold';
+  font-family: 'Montserrat-SemiBold';
   font-size: 14px;
   color: #ffffff;
 `;
@@ -40,7 +40,9 @@ const CommonText = styled.Text`
 export const Name = styled(CommonText)``;
 
 export const TimeText = styled(CommonText)`
-  font-family: 'Montserrat_400Regular';
+  font-family: 'Montserrat-Regular';
 `;
 
-export const Number = styled(CommonText)``;
+export const Number = styled(CommonText)`
+  font-family: 'Montserrat-SemiBold';
+`;

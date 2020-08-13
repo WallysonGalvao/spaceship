@@ -16,7 +16,6 @@ const Header: React.FC<Props> = ({ title }) => {
   return (
     <Container timer={isTimer}>
       {isTimer && <Title>{title}</Title>}
-
       <Point />
     </Container>
   );

@@ -27,7 +27,11 @@ const CustomCountdown: React.FC<Props> = ({ missionValue, timer }) => {
         backgroundColor: 'transparent',
         margin: 10,
       }}
-      digitTxtStyle={{ color: '#FFF', fontSize: 60 }}
+      digitTxtStyle={{
+        letterSpacing: 5,
+        color: '#FFF',
+        fontSize: 60,
+      }}
       separatorStyle={{ color: '#FFF' }}
       timeToShow={['M', 'S']}
       timeLabels={{ m: null, s: null }}

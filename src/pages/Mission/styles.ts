@@ -12,6 +12,9 @@ export const PeriodControl = styled.View`
 `;
 
 export const PeriodControlText = styled.Text`
+  font-family: 'Montserrat-Regular';
+  font-style: normal;
+  font-weight: 600;
   font-size: 12px;
   color: #ffffff;
 `;
@@ -23,8 +26,20 @@ export const Info = styled.View`
   margin-bottom: 15px;
 `;
 
-export const CustomText = styled.Text`
-  font-family: 'Montserrat_600SemiBold';
+const CommonText = styled.Text`
+  font-family: 'Montserrat-SemiBold';
   font-size: 14px;
   color: #ffffff;
+`;
+
+export const TextLeft = styled(CommonText)`
+  font-family: 'Montserrat-SemiBold';
+`;
+
+export const Number = styled(CommonText)`
+  font-family: 'Montserrat-SemiBold';
+`;
+
+export const CustomText = styled(CommonText)`
+  font-family: 'Montserrat-Regular';
 `;

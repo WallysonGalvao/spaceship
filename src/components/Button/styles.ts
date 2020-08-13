@@ -8,6 +8,9 @@ export const CustomButton = styled.TouchableOpacity`
 `;
 
 export const Title = styled.Text`
+  font-family: 'Montserrat-Regular';
+  font-style: normal;
+  font-weight: 500;
   font-size: 14px;
   color: #ffffff;
 `;

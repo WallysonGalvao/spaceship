@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, ReactElement } from 'react';
 import {
   Container,
   Left,
@@ -20,18 +20,16 @@ interface Props {
 const Missions: React.FC<Props> = ({ color, name, time }) => {
   const hours = useMemo(() => {
     const values = convertSecondsInHour(time);
-
-    const { hour, minutes } = values;
-
-    let hourText = '';
-    if (hour !== 0 && hour === 1) hourText = `${hour} hora `;
-    else if (hour !== 0 && hour > 1) hourText = `${hour} horas `;
-
-    let minutesText = '';
-    if (minutes > 0) minutesText = `${minutes} minutos`;
-
-    return { hour: hourText, minutes: minutesText };
+    return values;
   }, [time]);
+
+  const HourText = ({ hour }: { hour: number }): ReactElement => {
+    if (hour > 0) {
+      if (hour > 1) return <TimeText> horas </TimeText>;
+      return <TimeText> hora </TimeText>;
+    }
+    return <TimeText />;
+  };
 
   return (
     <Container>
@@ -41,8 +39,10 @@ const Missions: React.FC<Props> = ({ color, name, time }) => {
       </Left>
       <Right>
         <TimeText>
-          <Number>{hours.hour}</Number>
-          <Number>{hours.minutes}</Number>
+          {hours.hour > 0 && <Number>{hours.hour}</Number>}
+          <HourText hour={hours.hour} />
+          {hours.minutes > 0 && <Number>{hours.minutes}</Number>}
+          {hours.minutes > 0 ? ' minutos' : ''}
         </TimeText>
       </Right>
     </Container>

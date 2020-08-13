@@ -13,6 +13,9 @@ export const Container = styled.View<Props>`
 `;
 
 export const Title = styled.Text`
+  font-family: 'Montserrat-Regular';
+  font-style: normal;
+  font-weight: bold;
   font-size: 24px;
   text-align: center;
   color: #ffffff;
