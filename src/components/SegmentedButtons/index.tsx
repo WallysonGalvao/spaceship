@@ -10,7 +10,13 @@ const SegmentedButtons: React.FC = () => {
         borderWidth: 0,
         height: 40,
       }}
-      tabTextStyle={{ fontSize: 14, color: '#FFFFFF' }}
+      tabTextStyle={{
+        fontFamily: 'Montserrat-Regular',
+        fontStyle: 'normal',
+        fontWeight: '500',
+        fontSize: 14,
+        color: '#FFFFFF',
+      }}
       activeTabStyle={{
         color: 'red',
         backgroundColor: '#CE2949',

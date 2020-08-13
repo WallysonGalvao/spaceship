@@ -29,7 +29,7 @@ const Timer: React.FC = () => {
 
   return (
     <Page>
-      <MissionName style={{ color: '#FFF' }}>{missionName}</MissionName>
+      <MissionName>{missionName}</MissionName>
 
       <TimeContainer>
         <Venus width={180} height={180} />
