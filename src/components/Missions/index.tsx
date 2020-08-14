@@ -1,4 +1,5 @@
 import React, { useMemo, ReactElement } from 'react';
+import { getHours, getMinutes } from 'date-fns';
 import {
   Container,
   Left,
@@ -11,8 +12,6 @@ import {
 
 import { translate } from '~/locales';
 
-import convertSecondsInHour from '~/utils/convertSecondsInHour';
-
 interface Props {
   color: string;
   name: string;
@@ -20,9 +19,10 @@ interface Props {
 }
 
 const Missions: React.FC<Props> = ({ color, name, time }) => {
-  const hours = useMemo(() => {
-    const values = convertSecondsInHour(time);
-    return values;
+  const myTime = useMemo(() => {
+    const hours = getHours(time);
+    const minutes = getMinutes(time);
+    return { hours, minutes };
   }, [time]);
 
   const HourText = ({ hour }: { hour: number }): ReactElement => {
@@ -33,6 +33,8 @@ const Missions: React.FC<Props> = ({ color, name, time }) => {
     return <TimeText />;
   };
 
+  const { hours, minutes } = myTime;
+
   return (
     <Container>
       <Left>
@@ -41,10 +43,10 @@ const Missions: React.FC<Props> = ({ color, name, time }) => {
       </Left>
       <Right>
         <TimeText>
-          {hours.hour > 0 && <Number>{hours.hour}</Number>}
-          <HourText hour={hours.hour} />
-          {hours.minutes > 0 && <Number>{hours.minutes}</Number>}
-          {hours.minutes > 0 ? ' minutos' : ''}
+          {hours > 0 && <Number>{hours}</Number>}
+          <HourText hour={hours} />
+          {minutes > 0 && <Number>{minutes}</Number>}
+          {minutes > 0 ? ' minutos' : ''}
         </TimeText>
       </Right>
     </Container>

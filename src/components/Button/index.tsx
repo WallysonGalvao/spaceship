@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { View } from 'react-native';
 import { CustomButton, Title } from './styles';
 
 interface Props {
@@ -10,7 +11,9 @@ interface Props {
 const Button: React.FC<Props> = ({ title, onPress }) => {
   return (
     <CustomButton onPress={onPress}>
-      <Title>{title}</Title>
+      <View accessible>
+        <Title>{title}</Title>
+      </View>
     </CustomButton>
   );
 };

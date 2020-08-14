@@ -1,5 +1,7 @@
 import React, { useMemo } from 'react';
 import Pie from 'react-native-pie';
+import { getHours, getMinutes, getSeconds } from 'date-fns';
+import * as duration from 'duration-fns';
 
 interface Props {
   missions: {
@@ -11,11 +13,21 @@ interface Props {
 }
 
 const Chart: React.FC<Props> = ({ missions, totalMissionsHours }) => {
+  const convertTimeToSeconds = (time: number): number => {
+    const hours = getHours(time);
+    const minutes = getMinutes(time);
+    const seconds = getSeconds(time);
+    return duration.toSeconds({ hours, minutes, seconds });
+  };
+
   const sections = useMemo(() => {
-    return missions.map(mission => ({
-      color: mission.color,
-      percentage: (mission.time * 100) / 10800,
-    }));
+    return missions.map(({ color, time }) => {
+      const myTime = convertTimeToSeconds(time);
+      return {
+        color,
+        percentage: (myTime * 100) / totalMissionsHours,
+      };
+    });
   }, [missions, totalMissionsHours]);
 
   return (

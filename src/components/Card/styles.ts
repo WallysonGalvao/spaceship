@@ -1,7 +1,12 @@
-import styled from 'styled-components/native';
+import styled, { css } from 'styled-components/native';
+import { RectButton } from 'react-native-gesture-handler';
 
-export const Container = styled.View`
-  /* width: 85%; */
+interface CardProps {
+  isSelected: boolean;
+  isAvailable: boolean;
+}
+
+export const Container = styled.View<CardProps>`
   width: 240px;
   height: 380px;
 
@@ -9,18 +14,32 @@ export const Container = styled.View`
   border-radius: 24px;
   padding: 20px;
 
-  border-color: #ee5f40;
+  border-color: #302b4e;
   border-width: 3px;
-  margin-left: 15px;
+
+  ${props =>
+    props.isAvailable &&
+    css`
+      border-color: #ce2949;
+    `}
+
+  ${props =>
+    props.isSelected &&
+    css`
+      border-color: #ee5f40;
+    `}
+
+  
+  margin-left: 20px;
 `;
 
 export const ImageContainer = styled.View`
   align-items: center;
-  margin: 25px;
+  margin-bottom: 10px;
 `;
 
 export const Name = styled.Text`
-  font-family: 'Montserrat_600SemiBold';
+  font-family: 'Montserrat-SemiBold';
   font-size: 14px;
 
   color: #ffffff;
@@ -28,16 +47,13 @@ export const Name = styled.Text`
 `;
 
 export const Description = styled.Text`
-  font-family: 'Montserrat_400Regular';
+  font-family: 'Montserrat-Regular';
   font-size: 12px;
 
   color: #ffffff;
 `;
 
 export const Footer = styled.View`
-  /* border-color: white;
-  border-width: 1px; */
-
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
@@ -45,7 +61,7 @@ export const Footer = styled.View`
   margin-top: 40px;
 `;
 
-export const CustomButton = styled.TouchableOpacity`
+export const CustomButton = styled(RectButton)`
   width: 104px;
   height: 40px;
   background: #ce2949;
@@ -53,11 +69,6 @@ export const CustomButton = styled.TouchableOpacity`
 
   justify-content: center;
   align-self: center;
-
-  /* padding: 15px 25px; */
-
-  /* position: absolute;
-  bottom: 100px; */
 `;
 
 export const CustomText = styled.Text`

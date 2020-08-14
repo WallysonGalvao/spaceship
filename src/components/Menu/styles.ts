@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import { RectButton } from 'react-native-gesture-handler';
 
 export const Container = styled.View`
   flex-direction: row;
@@ -10,4 +11,4 @@ export const Container = styled.View`
   bottom: 10px;
 `;
 
-export const Button = styled.TouchableOpacity``;
+export const Button = styled(RectButton)``;

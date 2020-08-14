@@ -1,10 +1,37 @@
-import React from 'react';
-import SegmentedControlTab from 'react-native-segmented-control-tab';
+import React, { useMemo, useCallback } from 'react';
+import SegmentedControlTab, {
+  SegmentedControlTabProperties,
+} from 'react-native-segmented-control-tab';
 
-const SegmentedButtons: React.FC = () => {
+import { translate } from '~/locales';
+
+interface Props extends SegmentedControlTabProperties {
+  handlePeriod: (index: string) => void;
+}
+
+const SegmentedButtons: React.FC<Props> = ({
+  selectedIndex,
+  onTabPress,
+  handlePeriod,
+}) => {
+  const periods = ['day', 'week', 'month', 'year', 'all'];
+  const values = useMemo(() => {
+    return periods.map(period => translate(period));
+  }, [periods]);
+
+  const handleIndexChange = useCallback(
+    index => {
+      if (onTabPress && handlePeriod) {
+        onTabPress(index);
+        handlePeriod(periods[index]);
+      }
+    },
+    [onTabPress, handlePeriod, periods],
+  );
+
   return (
     <SegmentedControlTab
-      values={['Dia', 'Semana', 'Mês', 'Ano', 'Todos']}
+      values={values}
       tabStyle={{
         backgroundColor: '#302B4E',
         borderWidth: 0,
@@ -22,7 +49,8 @@ const SegmentedButtons: React.FC = () => {
         backgroundColor: '#CE2949',
         borderRadius: 5,
       }}
-      selectedIndex={1}
+      selectedIndex={selectedIndex}
+      onTabPress={handleIndexChange}
     />
   );
 };
