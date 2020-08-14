@@ -10,18 +10,5 @@ export const MissionName = styled.Text`
 
   color: #ffffff;
 
-  bottom: 10%;
-`;
-
-export const TimeContainer = styled.View`
-  background: transparent;
-
-  width: 250px;
-  height: 250px;
-  border-radius: 150px;
-  border-color: #302b4e;
-  border-width: 10px;
-
-  justify-content: center;
-  align-items: center;
+  bottom: 5%;
 `;

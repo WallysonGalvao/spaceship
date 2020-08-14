@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useState, useMemo, useCallback } from 'react';
 import Icon from 'react-native-vector-icons/Feather';
 
 import { View } from 'react-native';
@@ -7,6 +7,8 @@ import Page from '~/components/Page';
 import SegmentedButtons from '~/components/SegmentedButtons';
 import Chart from '~/components/Chart';
 import Missions from '~/components/Missions';
+
+import { translate } from '~/locales';
 
 import { useMission } from '~/hooks/mission';
 import convertSecondsInHour from '~/utils/convertSecondsInHour';
@@ -24,6 +26,8 @@ import {
 
 const Mission: React.FC = () => {
   const { completedMissions, totalMissionsHours } = useMission();
+  const [selectedIndex, setSelectedIndex] = useState(1);
+  const [selectedPeriod, setSelectedPeriod] = useState('Week');
 
   const hours = useMemo(() => {
     const value = convertSecondsInHour(totalMissionsHours.time);
@@ -31,8 +35,12 @@ const Mission: React.FC = () => {
   }, [totalMissionsHours.time]);
 
   return (
-    <Page title="Missões">
-      <SegmentedButtons />
+    <Page title={translate('mission_title')}>
+      <SegmentedButtons
+        selectedIndex={selectedIndex}
+        onTabPress={setSelectedIndex}
+        handlePeriod={setSelectedPeriod}
+      />
 
       <PeriodControl>
         <Icon name="chevron-left" color="#FFFFFF" size={20} />
@@ -60,9 +68,10 @@ const Mission: React.FC = () => {
       <Info>
         <TextLeft>{totalMissionsHours.name}</TextLeft>
         <CustomText>
-          <Number>{hours.hour}</Number> {hours.hour > 1 ? 'horas ' : 'hora '}
+          <Number>{hours.hour}</Number>{' '}
+          {hours.hour > 1 ? `${translate('hours')} ` : `${translate('hour')} `}
           <Number>{hours.minutes > 0 && hours.minutes}</Number>
-          {hours.minutes > 0 ? ' minutos' : ''}
+          {hours.minutes > 0 ? ` ${translate('minutes')}` : ''}
         </CustomText>
       </Info>
 

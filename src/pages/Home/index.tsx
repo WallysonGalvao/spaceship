@@ -16,15 +16,14 @@ const Home: React.FC = () => {
   const navigation = useNavigation();
   const [selectedTimer, setSelectedTimer] = useState(30);
   const [missionName, setMissionName] = useState({
-    label: 'Estudar',
     value: 'study',
   });
-  const { label, value } = missionName;
-  const params = { missionName: label, missionValue: value, selectedTimer };
+  const { value } = missionName;
+  const params = { missionName: value, missionValue: value, selectedTimer };
   return (
     <Page>
       <Name>{translate('home_welcome')} Rayssa!</Name>
-      <Question>Qual será nossa missão de hoje?</Question>
+      <Question>{translate('home_question')}</Question>
 
       <Picker selectedValue={value} setMissionName={setMissionName} />
 
@@ -33,7 +32,7 @@ const Home: React.FC = () => {
       <Carousel onChangeItem={setSelectedTimer} />
 
       <Button
-        title="Iniciar missão"
+        title={translate('home_button')}
         onPress={() => navigation.navigate('Timer', { ...params })}
       />
     </Page>

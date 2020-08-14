@@ -4,11 +4,13 @@ import { ScrollView } from 'react-native';
 import Page from '~/components/Page';
 import Card from '~/components/Card';
 
+import { translate } from '~/locales';
+
 import planets from '~/res/planets';
 
 const Planets: React.FC = () => {
   return (
-    <Page title="Sistema Solar">
+    <Page title={translate('planets_title')}>
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}

@@ -1,13 +1,14 @@
 import React, { useCallback, useState } from 'react';
 import { useRoute, useNavigation } from '@react-navigation/native';
 
-import Venus from '~/assets/planets/venus.svg';
-
 import Page from '~/components/Page';
+import CircularProgress from '~/components/CircularProgress';
 import Countdown from '~/components/Countdown';
 import Button from '~/components/Button';
 
-import { MissionName, TimeContainer } from './styles';
+import { translate } from '~/locales';
+
+import { MissionName } from './styles';
 
 interface IParams {
   missionName: string;
@@ -29,15 +30,13 @@ const Timer: React.FC = () => {
 
   return (
     <Page>
-      <MissionName>{missionName}</MissionName>
+      <MissionName>{translate(`item_${missionName}`)}</MissionName>
 
-      <TimeContainer>
-        <Venus width={180} height={180} />
-      </TimeContainer>
+      <CircularProgress timer={timer} />
 
       <Countdown missionValue={missionValue} timer={timer} />
 
-      <Button title="Abandonar missão :(" onPress={exitMission} />
+      <Button title={translate('timer_button')} onPress={exitMission} />
     </Page>
   );
 };
