@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 
-import Mercury from '~/assets/planets/mercury.svg';
+import { View } from 'react-native';
 
 import Point from '../Point';
 import PlanetIcon from '../PlanetIcon';
@@ -15,25 +15,50 @@ import {
   CustomText,
 } from './styles';
 
+import { translate } from '~/locales';
+
 interface Props {
   name: string;
-  icon: string;
+  price: number | string;
+  locked: boolean;
   description: string;
+  selectedPlanet: string;
 }
 
-const Card: React.FC<Props> = ({ name, icon, description }) => {
+const myMoney = 80;
+
+const Card: React.FC<Props> = ({
+  name,
+  price,
+  description,
+  selectedPlanet,
+}) => {
+  const isAvailable = useMemo(() => {
+    return !(myMoney >= price);
+  }, [price]);
+
+  const isSelected = useMemo(() => {
+    return selectedPlanet === name;
+  }, [selectedPlanet, name]);
+
   return (
-    <Container>
+    <Container isSelected={isSelected} isAvailable={isAvailable}>
       <ImageContainer>
-        {/* <PlanetIcon icon={icon} /> */}
-        <Mercury />
+        <PlanetIcon icon={name} dimension={90} />
       </ImageContainer>
-      <Name>{name}</Name>
+
+      <Name>{translate(name)}</Name>
       <Description>{description}</Description>
       <Footer>
-        <Point />
+        <Point value={price} />
         <CustomButton>
-          <CustomText>Desbloqueado</CustomText>
+          <View accessible>
+            <CustomText>
+              {isAvailable
+                ? translate('solar_system_card_button_locked')
+                : translate('solar_system_card_button_unlocked')}
+            </CustomText>
+          </View>
         </CustomButton>
       </Footer>
     </Container>

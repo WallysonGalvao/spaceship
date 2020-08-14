@@ -14,7 +14,7 @@ import { Name, Question } from './styles';
 
 const Home: React.FC = () => {
   const navigation = useNavigation();
-  const [selectedTimer, setSelectedTimer] = useState(30);
+  const [selectedTimer, setSelectedTimer] = useState(0.8);
   const [missionName, setMissionName] = useState({
     value: 'study',
   });

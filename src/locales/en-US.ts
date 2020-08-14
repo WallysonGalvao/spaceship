@@ -6,8 +6,23 @@ const strings = {
   timer_button: 'Abandon mission :(',
   mission_title: 'Missions',
   planets_title: 'Solar System',
+  solar_system_card_button_unlocked: 'Unlocked',
+  solar_system_card_button_locked: 'Locked',
 
-  // const
+  // Planets
+  earth: 'Earth',
+  jupiter: 'Jupiter',
+  mars: 'Mars',
+  mercury: 'Mercury',
+  neptune: 'Neptune',
+  pluto: 'Pluto',
+  saturn: 'Saturn',
+  sun: 'Sun',
+  uranus: 'Uranus',
+  venus: 'Venus',
+
+  // Const
+  free: 'Free',
   hours: 'hours',
   hour: 'hour',
   minutes: 'minutes',
