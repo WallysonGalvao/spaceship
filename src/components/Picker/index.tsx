@@ -1,24 +1,32 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { PickerProps } from 'react-native';
 import { Picker } from '@react-native-community/picker';
 
 import { translate } from '~/locales';
 
 import { Container } from './styles';
-
-import pickerValues from '~/res/pickerValues';
+import { useMission } from '~/hooks/mission';
 
 interface Props extends PickerProps {
   setMissionName(mission: { value: string }): void;
 }
 
 const CustomPicker: React.FC<Props> = ({ selectedValue, setMissionName }) => {
+  const { missions } = useMission();
+
+  const pickerValues = useMemo(() => {
+    const filtered = missions
+      .filter(mission => mission.id)
+      .map(mission => ({ id: mission.id, value: mission.name }));
+    return filtered;
+  }, [missions]);
+
   const handleValueChange = useCallback(
     itemIndex => {
       const value = pickerValues[itemIndex];
       setMissionName({ ...value });
     },
-    [setMissionName],
+    [setMissionName, pickerValues],
   );
 
   return (

@@ -7,9 +7,10 @@ import React, {
 } from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
 
-// import missionsMock from '../res/missions';
+import missionsMock from '../res/missions';
 
 interface Mission {
+  id: number;
   name: string;
   time: number;
   color: string;
@@ -50,11 +51,16 @@ export const MissionProvider: React.FC = ({ children }) => {
 
   async function loadData(): Promise<void> {
     const response = await AsyncStorage.getItem(STORAGE_NAME);
+    // console.log(`${STORAGE_NAME} ${JSON.stringify(response)}`);
+
+    /**
+     * TODO: Filtrar missões pelo id do user
+     */
 
     if (response && response.length > 0) {
       setMissions(JSON.parse(response));
     } else {
-      await AsyncStorage.setItem(STORAGE_NAME, JSON.stringify([]));
+      await AsyncStorage.setItem(STORAGE_NAME, JSON.stringify(missionsMock));
     }
   }
 
@@ -63,7 +69,6 @@ export const MissionProvider: React.FC = ({ children }) => {
   }, []);
 
   const updateTime = useCallback((currentMission, timer) => {
-    // Atualizar as horas da missão
     const current = currentMission;
 
     const minutesInSeconds = timer * MINUTES_IN_SECONDS;

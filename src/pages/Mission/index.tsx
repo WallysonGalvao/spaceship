@@ -63,8 +63,8 @@ const Mission: React.FC = () => {
         />
       </View>
 
-      {myMissions.map(({ color, name, time }) => (
-        <Missions key={name} color={color} name={name} time={time} />
+      {myMissions.map(({ id, color, name, time }) => (
+        <Missions key={id} color={color} name={name} time={time} />
       ))}
 
       <Info>
