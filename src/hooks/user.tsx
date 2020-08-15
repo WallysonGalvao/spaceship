@@ -13,11 +13,13 @@ interface User {
   username: string;
   missions: Array<number>;
   planets: Array<number>;
+  myPlanet: string;
   credits: number;
 }
 
 interface UserContextData {
   user: User;
+  updateMyPlanet(planet: string): void;
 }
 
 const UserContext = createContext<UserContextData>({} as UserContextData);
@@ -42,8 +44,19 @@ export const UserProvider: React.FC = ({ children }) => {
     loadData();
   }, []);
 
+  const updateMyPlanet = useCallback(
+    (planet: string) => {
+      const updateUser = { ...user };
+      updateUser.myPlanet = planet;
+      setUser(updateUser);
+    },
+    [user],
+  );
+
   return (
-    <UserContext.Provider value={{ user }}>{children}</UserContext.Provider>
+    <UserContext.Provider value={{ user, updateMyPlanet }}>
+      {children}
+    </UserContext.Provider>
   );
 };
 

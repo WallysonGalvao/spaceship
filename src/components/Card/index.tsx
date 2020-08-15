@@ -16,16 +16,14 @@ import {
 } from './styles';
 
 import { translate } from '~/locales';
+import { useUser } from '~/hooks/user';
 
 interface Props {
   name: string;
-  price: number | string;
-  locked: boolean;
+  price: number;
   description: string;
   selectedPlanet: string;
 }
-
-const myMoney = 80;
 
 const Card: React.FC<Props> = ({
   name,
@@ -33,9 +31,10 @@ const Card: React.FC<Props> = ({
   description,
   selectedPlanet,
 }) => {
+  const { user } = useUser();
   const isAvailable = useMemo(() => {
-    return !(myMoney >= price);
-  }, [price]);
+    return !(user.credits >= price);
+  }, [price, user.credits]);
 
   const isSelected = useMemo(() => {
     return selectedPlanet === name;

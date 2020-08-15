@@ -5,16 +5,22 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import Page from '~/components/Page';
 import Card from '~/components/Card';
 
-import { translate } from '~/locales';
-
 import planets from '~/res/planets';
 
-const Planets: React.FC = () => {
-  const [selectedPlanet, setSelectedPlanet] = useState('mercury');
+import { translate } from '~/locales';
+import { useUser } from '~/hooks/user';
 
-  const handleLongPress = useCallback((name: string): void => {
-    setSelectedPlanet(name);
-  }, []);
+const Planets: React.FC = () => {
+  const { user, updateMyPlanet } = useUser();
+  const [selectedPlanet, setSelectedPlanet] = useState(user.myPlanet);
+
+  const handleLongPress = useCallback(
+    (name: string): void => {
+      setSelectedPlanet(name);
+      updateMyPlanet(name);
+    },
+    [updateMyPlanet],
+  );
 
   return (
     <Page title={translate('planets_title')}>
@@ -23,12 +29,15 @@ const Planets: React.FC = () => {
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={{ alignItems: 'center' }}
       >
-        {planets.map(({ id, name, price, locked, description }) => (
-          <TouchableOpacity key={id} onLongPress={() => handleLongPress(name)}>
+        {planets.map(({ id, name, price, description }) => (
+          <TouchableOpacity
+            key={id}
+            disabled={!(user.credits >= price)}
+            onLongPress={() => handleLongPress(name)}
+          >
             <Card
               name={name}
               price={price}
-              locked={locked}
               description={description}
               selectedPlanet={selectedPlanet}
             />
