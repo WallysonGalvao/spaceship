@@ -6,30 +6,20 @@ import React, {
   createContext,
 } from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
+import { addMinutes, getTime } from 'date-fns';
 
 import missionsMock from '../res/missions';
 
-interface Mission {
+export interface Mission {
   id: number;
   name: string;
   time: number;
   color: string;
 }
 
-interface TotalMissionsHour {
-  name: string;
-  time: number;
-}
-
-interface CompletedMissions {
-  name: string;
-  total: number;
-}
-
 interface MissionContextData {
   missions: Mission[];
-  totalMissionsHours: TotalMissionsHour;
-  completedMissions: CompletedMissions;
+
   updateMissionTime({ name, timer }: { name: string; timer: number }): void;
 }
 
@@ -38,46 +28,26 @@ const MissionContext = createContext<MissionContextData>(
 );
 
 const STORAGE_NAME = '@spaceship:missions';
-const MINUTES_IN_SECONDS = 60;
 
 export const MissionProvider: React.FC = ({ children }) => {
   const [missions, setMissions] = useState<Mission[]>([]);
-  const [totalMissionsHours, setTotalMissionsHours] = useState<
-    TotalMissionsHour
-  >({ name: 'Tempo total', time: 10800 } as TotalMissionsHour);
-  const [completedMissions, setCompletedMissions] = useState<CompletedMissions>(
-    { name: 'Missões concluídas', total: 3 } as CompletedMissions,
-  );
 
   async function loadData(): Promise<void> {
-    const response = await AsyncStorage.getItem(STORAGE_NAME);
+    // const response = await AsyncStorage.getItem(STORAGE_NAME);
     // console.log(`${STORAGE_NAME} ${JSON.stringify(response)}`);
-
     /**
      * TODO: Filtrar missões pelo id do user
      */
-
-    if (response && response.length > 0) {
+    /* if (response && response.length > 0) {
       setMissions(JSON.parse(response));
     } else {
       await AsyncStorage.setItem(STORAGE_NAME, JSON.stringify(missionsMock));
-    }
+    } */
+    // setMissions(missionsMock);
   }
 
   useEffect(() => {
     loadData();
-  }, []);
-
-  const updateTime = useCallback((currentMission, timer) => {
-    const current = currentMission;
-
-    const minutesInSeconds = timer * MINUTES_IN_SECONDS;
-
-    const timeToAdd = current.time + minutesInSeconds;
-
-    current.time = timeToAdd;
-
-    return current;
   }, []);
 
   const updateMissionTime = useCallback(
@@ -90,44 +60,22 @@ export const MissionProvider: React.FC = ({ children }) => {
       if (index >= 0 && timer) {
         const updateMissionTimes = [...missions];
 
-        // Updates the hours of the selected mission
-        updateTime(updateMissionTimes[index], timer);
+        // Trocar esse 30 por timer
+        const currentMission = updateMissionTimes[index];
+
+        const result = addMinutes(currentMission.time, timer);
+        currentMission.time = getTime(result);
+        console.log(`currentMission ${JSON.stringify(currentMission)}`);
         setMissions(updateMissionTimes);
-
-        // Updates total time with all missions
-        const allHours = updateMissionTimes
-          .filter(mission => mission.time)
-          .map(({ time }) => ({ time }))
-          .reduce((a, b) => ({
-            time: a.time + b.time,
-          }));
-
-        setTotalMissionsHours({
-          ...totalMissionsHours,
-          ...allHours,
-        });
-
-        // Updates number of completed missions
-        setCompletedMissions({
-          ...completedMissions,
-          total: updateMissionTimes.length,
-        });
       }
 
       AsyncStorage.setItem(STORAGE_NAME, JSON.stringify(missions));
     },
-    [missions, totalMissionsHours, completedMissions, updateTime],
+    [missions],
   );
 
   return (
-    <MissionContext.Provider
-      value={{
-        missions,
-        totalMissionsHours,
-        completedMissions,
-        updateMissionTime,
-      }}
-    >
+    <MissionContext.Provider value={{ missions, updateMissionTime }}>
       {children}
     </MissionContext.Provider>
   );

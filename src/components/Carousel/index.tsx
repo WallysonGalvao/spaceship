@@ -12,7 +12,7 @@ interface Props {
 }
 
 const CarouselPicker: React.FC<Props> = ({ onChangeItem }) => {
-  const data = [0.8, 35, 40, 45, 50, 55, 60];
+  const data = [0.1, 35, 40, 45, 50, 55, 60];
 
   const renderItem = ({ item }: { item: number }): ReactElement => {
     return (

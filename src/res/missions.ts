@@ -31,6 +31,14 @@ const missions = [
     // Dia 14
     // 2 hora = 7200 segundos
   },
+  {
+    id: 5,
+    color: '#eeba40',
+    name: 'programming',
+    time: 1597461026637,
+    // Dia 15
+    // 10 minutos
+  },
 ];
 
 export default missions;

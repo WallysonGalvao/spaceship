@@ -18,7 +18,7 @@ const Home: React.FC = () => {
   const { user } = useUser();
 
   const navigation = useNavigation();
-  const [selectedTimer, setSelectedTimer] = useState(0.8);
+  const [selectedTimer, setSelectedTimer] = useState(0.1);
   const [missionName, setMissionName] = useState({
     value: 'study',
   });

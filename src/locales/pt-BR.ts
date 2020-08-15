@@ -5,6 +5,8 @@ const strings = {
   home_button: 'Iniciar missão',
   timer_button: 'Abandonar missão :(',
   mission_title: 'Missões',
+  mission_total_time: 'Tempo total',
+  mission_completed: 'Missões completadas',
   planets_title: 'Sistema Solar',
   solar_system_card_button_unlocked: 'Desbloqueado',
   solar_system_card_button_locked: 'Bloqueado',
@@ -34,6 +36,7 @@ const strings = {
   item_study: 'Estudar',
   item_exercise: 'Exercício',
   item_read: 'Ler',
+  item_programming: 'Programar',
 };
 
 export default strings;

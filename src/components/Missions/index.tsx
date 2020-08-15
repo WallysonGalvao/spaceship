@@ -27,8 +27,8 @@ const Missions: React.FC<Props> = ({ color, name, time }) => {
 
   const HourText = ({ hour }: { hour: number }): ReactElement => {
     if (hour > 0) {
-      if (hour > 1) return <TimeText> horas </TimeText>;
-      return <TimeText> hora </TimeText>;
+      if (hour > 1) return <TimeText> {translate('hours')} </TimeText>;
+      return <TimeText> {translate('hour')} </TimeText>;
     }
     return <TimeText />;
   };
@@ -46,7 +46,7 @@ const Missions: React.FC<Props> = ({ color, name, time }) => {
           {hours > 0 && <Number>{hours}</Number>}
           <HourText hour={hours} />
           {minutes > 0 && <Number>{minutes}</Number>}
-          {minutes > 0 ? ' minutos' : ''}
+          {minutes > 0 ? ` ${translate('minutes')}` : ''}
         </TimeText>
       </Right>
     </Container>

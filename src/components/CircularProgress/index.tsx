@@ -13,7 +13,6 @@ const New: React.FC<Props> = ({ timer }) => {
   const circularProgressRef: RefObject<AnimatedCircularProgress> = createRef();
 
   const timing = useMemo(() => {
-    // console.log();
     if (timer) return timer * 60000;
     return 0;
   }, [timer]);

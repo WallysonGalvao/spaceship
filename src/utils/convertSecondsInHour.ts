@@ -1,23 +1,13 @@
+import * as duration from 'duration-fns';
+
 const convertSecondsInHour = (
   seconds: number,
-): { hour: number; minutes: number } => {
-  const secondsToHours = seconds / 3600;
+): { hours: number; minutes: number } => {
+  const time = duration.normalize({ seconds });
 
-  let hourParsed = secondsToHours;
-  let minParsed = 0;
+  const { hours, minutes } = time;
 
-  if (secondsToHours.toString().includes('.')) {
-    const [hour, minutes] = secondsToHours.toString().split('.');
-
-    hourParsed = parseInt(hour, 10);
-    minParsed = parseInt(minutes, 10);
-
-    if (minParsed < 10) {
-      minParsed = parseInt(`${minParsed}0`, 10);
-    }
-  }
-
-  return { hour: hourParsed, minutes: minParsed };
+  return { hours, minutes };
 };
 
 export default convertSecondsInHour;

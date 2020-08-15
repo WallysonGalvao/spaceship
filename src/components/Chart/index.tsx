@@ -24,7 +24,7 @@ const Chart: React.FC<Props> = ({ missions, totalMissionsHours }) => {
     return missions.map(({ color, time }) => {
       const myTime = convertTimeToSeconds(time);
       return {
-        color,
+        color: color.toUpperCase(),
         percentage: (myTime * 100) / totalMissionsHours,
       };
     });
