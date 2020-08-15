@@ -36,6 +36,7 @@ export const UserProvider: React.FC = ({ children }) => {
     if (response) {
       setUser(JSON.parse(response));
     } else {
+      setUser(JSON.parse(userMock));
       await AsyncStorage.setItem(STORAGE_NAME, JSON.stringify(userMock));
     }
   }
