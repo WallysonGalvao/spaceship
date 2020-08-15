@@ -33,17 +33,17 @@ export const MissionProvider: React.FC = ({ children }) => {
   const [missions, setMissions] = useState<Mission[]>([]);
 
   async function loadData(): Promise<void> {
-    // const response = await AsyncStorage.getItem(STORAGE_NAME);
+    const response = await AsyncStorage.getItem(STORAGE_NAME);
     // console.log(`${STORAGE_NAME} ${JSON.stringify(response)}`);
     /**
      * TODO: Filtrar missões pelo id do user
      */
-    /* if (response && response.length > 0) {
+    if (response && response.length > 0) {
       setMissions(JSON.parse(response));
     } else {
+      setMissions(missionsMock);
       await AsyncStorage.setItem(STORAGE_NAME, JSON.stringify(missionsMock));
-    } */
-    // setMissions(missionsMock);
+    }
   }
 
   useEffect(() => {

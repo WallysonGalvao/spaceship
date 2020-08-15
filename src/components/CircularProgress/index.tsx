@@ -1,15 +1,17 @@
 import React, { RefObject, createRef, useEffect, useMemo } from 'react';
 import { Easing } from 'react-native';
-
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
 
-import Venus from '~/assets/planets/venus.svg';
+import PlanetIcon from '~/components/PlanetIcon';
+
+import { useUser } from '~/hooks/user';
 
 interface Props {
   timer: number | null;
 }
 
-const New: React.FC<Props> = ({ timer }) => {
+const CircularProgress: React.FC<Props> = ({ timer }) => {
+  const { user } = useUser();
   const circularProgressRef: RefObject<AnimatedCircularProgress> = createRef();
 
   const timing = useMemo(() => {
@@ -36,9 +38,9 @@ const New: React.FC<Props> = ({ timer }) => {
       arcSweepAngle={360}
       rotation={240}
     >
-      {() => <Venus width={180} height={180} />}
+      {() => <PlanetIcon icon={user.myPlanet || 'sun'} dimension={180} />}
     </AnimatedCircularProgress>
   );
 };
 
-export default New;
+export default CircularProgress;

@@ -9,6 +9,7 @@ import SegmentedButtons from '~/components/SegmentedButtons';
 import PeriodControl from '~/components/PeriodControl';
 import Chart from '~/components/Chart';
 import Missions from '~/components/Missions';
+import NoMissions from '~/pages/NoMission';
 
 import { translate } from '~/locales';
 
@@ -31,21 +32,23 @@ const Mission: React.FC = () => {
       isSameDay(selectedDate, time),
     );
 
-    console.log(`missionsFiltered ${JSON.stringify(missionsFiltered)}`);
-
-    const allHours = missionsFiltered
-      .filter(mission => mission.time)
-      .map(({ time }) => {
-        const hours = getHours(time);
-        const minutes = getMinutes(time);
-        const seconds = getSeconds(time);
-        return duration.toSeconds({ hours, minutes, seconds });
-      })
-      .reduce((a, b) => a + b);
-
     setMyMissions(missionsFiltered);
 
-    setTotalMissionsHours(allHours);
+    console.log(`missionsFiltered ${JSON.stringify(missions.length > 0)}`);
+
+    if (missionsFiltered.length > 0) {
+      const allHours = missionsFiltered
+        .filter(mission => mission.time)
+        .map(({ time }) => {
+          const hours = getHours(time);
+          const minutes = getMinutes(time);
+          const seconds = getSeconds(time);
+          return duration.toSeconds({ hours, minutes, seconds });
+        })
+        .reduce((a, b) => a + b);
+
+      setTotalMissionsHours(allHours);
+    }
   }, [missions, selectedDate]);
 
   const myTime = useMemo(() => {
@@ -62,6 +65,8 @@ const Mission: React.FC = () => {
   };
 
   const { hours, minutes } = myTime;
+
+  if (myMissions.length === 0) return <NoMissions />;
 
   return (
     <Page title={translate('mission_title')}>
