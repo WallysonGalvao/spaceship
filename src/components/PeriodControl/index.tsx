@@ -1,12 +1,9 @@
 import React, { useMemo } from 'react';
 import Icon from 'react-native-vector-icons/Feather';
-import { format, isToday, addDays, subDays, min, isBefore } from 'date-fns';
+import { format, isToday, addDays, subDays, min, isSameDay } from 'date-fns';
 import ptBr from 'date-fns/locale/pt-BR';
 
-import {
-  TouchableNativeFeedback,
-  TouchableOpacity,
-} from 'react-native-gesture-handler';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Mission } from '~/hooks/mission';
 import { Container, Text } from './styles';
 
@@ -30,24 +27,37 @@ const PeriodControl: React.FC<Props> = ({
   const isLastDay = useMemo(() => {
     const parsed = missions.map(mission => new Date(mission.time));
     const earliest = min(parsed);
-    return isBefore(selectedDate, earliest);
+    return isSameDay(selectedDate, earliest);
   }, [selectedDate, missions]);
+
+  const isTomorrow = useMemo(() => {
+    return isToday(selectedDate);
+  }, [selectedDate]);
 
   return (
     <Container>
-      <TouchableNativeFeedback
+      <TouchableOpacity
         disabled={isLastDay}
         onPress={() => onChangeDate(subDays(selectedDate, 1))}
         style={{ padding: 15 }}
       >
-        <Icon name="chevron-left" color="#FFFFFF" size={20} />
-      </TouchableNativeFeedback>
+        <Icon
+          name="chevron-left"
+          color={isLastDay ? 'red' : '#FFF'}
+          size={20}
+        />
+      </TouchableOpacity>
       <Text>{isToday(selectedDate) ? 'Hoje' : selectedDateAsText}</Text>
       <TouchableOpacity
+        disabled={isTomorrow}
         onPress={() => onChangeDate(addDays(selectedDate, 1))}
         style={{ padding: 15 }}
       >
-        <Icon name="chevron-right" color="#FFFFFF" size={20} />
+        <Icon
+          name="chevron-right"
+          color={isTomorrow ? 'red' : '#FFF'}
+          size={20}
+        />
       </TouchableOpacity>
     </Container>
   );

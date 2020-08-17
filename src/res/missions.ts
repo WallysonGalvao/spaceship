@@ -33,8 +33,8 @@ const missions = [
   },
   {
     id: 5,
-    color: '#eeba40',
-    name: 'programming',
+    color: '#3ecf92',
+    name: 'music',
     time: 1597461026637,
     // Dia 15
     // 10 minutos

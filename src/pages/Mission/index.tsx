@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useEffect, ReactElement } from 'react';
 
-import { View } from 'react-native';
+import { View, Text } from 'react-native';
 
 import { isSameDay, getHours, getMinutes, getSeconds } from 'date-fns';
 import * as duration from 'duration-fns';
@@ -9,7 +9,6 @@ import SegmentedButtons from '~/components/SegmentedButtons';
 import PeriodControl from '~/components/PeriodControl';
 import Chart from '~/components/Chart';
 import Missions from '~/components/Missions';
-import NoMissions from '~/pages/NoMission';
 
 import { translate } from '~/locales';
 
@@ -32,9 +31,11 @@ const Mission: React.FC = () => {
       isSameDay(selectedDate, time),
     );
 
+    // console.log(missions);
+
     setMyMissions(missionsFiltered);
 
-    console.log(`missionsFiltered ${JSON.stringify(missions.length > 0)}`);
+    // console.log(`missionsFiltered ${JSON.stringify(missionsFiltered)}`);
 
     if (missionsFiltered.length > 0) {
       const allHours = missionsFiltered
@@ -48,6 +49,8 @@ const Mission: React.FC = () => {
         .reduce((a, b) => a + b);
 
       setTotalMissionsHours(allHours);
+    } else {
+      setTotalMissionsHours(0);
     }
   }, [missions, selectedDate]);
 
@@ -65,8 +68,6 @@ const Mission: React.FC = () => {
   };
 
   const { hours, minutes } = myTime;
-
-  if (myMissions.length === 0) return <NoMissions />;
 
   return (
     <Page title={translate('mission_title')}>
@@ -89,36 +90,46 @@ const Mission: React.FC = () => {
           marginBottom: '10%',
         }}
       >
-        {/* <Chart missions={myMissions} totalMissionsHours={totalMissionsHours} /> */}
+        {myMissions.length === 0 ? (
+          <Text style={{ color: '#FFF', fontSize: 24 }}>
+            Sem missões completadas
+          </Text>
+        ) : (
+          {
+            /* <Chart missions={myMissions} totalMissionsHours={totalMissionsHours} /> */
+          }
+        )}
       </View>
 
-      <View
-        style={{
-          alignItems: 'center',
-          width: '100%',
-          position: 'absolute',
-          bottom: 10,
-        }}
-      >
-        {myMissions.map(({ id, color, name, time }) => (
-          <Missions key={id} color={color} name={name} time={time} />
-        ))}
+      {myMissions.length !== 0 && (
+        <View
+          style={{
+            alignItems: 'center',
+            width: '100%',
+            position: 'absolute',
+            bottom: 10,
+          }}
+        >
+          {myMissions.map(({ id, color, name, time }) => (
+            <Missions key={id} color={color} name={name} time={time} />
+          ))}
 
-        <Info>
-          <TextLeft>{translate('mission_total_time')}</TextLeft>
-          <CustomText>
-            {hours > 0 && <Number>{hours}</Number>}
-            <HourText hour={hours} />
-            {minutes > 0 && <Number>{minutes}</Number>}
-            {minutes > 0 ? ` ${translate('minutes')}` : ''}
-          </CustomText>
-        </Info>
+          <Info>
+            <TextLeft>{translate('mission_total_time')}</TextLeft>
+            <CustomText>
+              {hours > 0 && <Number>{hours}</Number>}
+              <HourText hour={hours} />
+              {minutes > 0 && <Number>{minutes}</Number>}
+              {minutes > 0 ? ` ${translate('minutes')}` : ''}
+            </CustomText>
+          </Info>
 
-        <Info>
-          <TextLeft>{translate('mission_completed')}</TextLeft>
-          <Number style={{ marginRight: 5 }}>{myMissions.length}</Number>
-        </Info>
-      </View>
+          <Info>
+            <TextLeft>{translate('mission_completed')}</TextLeft>
+            <Number style={{ marginRight: 5 }}>{myMissions.length}</Number>
+          </Info>
+        </View>
+      )}
     </Page>
   );
 };
