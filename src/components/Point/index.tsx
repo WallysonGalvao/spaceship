@@ -19,7 +19,7 @@ const Point: React.FC<Props> = ({ value }) => {
       <Circle>
         <Icon name="dollar-sign" color="#FFFFFF" size={15} />
       </Circle>
-      <Number>{point}</Number>
+      <Number>{point === 0 ? translate('free') : point}</Number>
     </Container>
   );
 };

@@ -20,6 +20,7 @@ interface User {
 interface UserContextData {
   user: User;
   updateMyPlanet(planet: string): void;
+  updateCredits(credit: number): void;
 }
 
 const UserContext = createContext<UserContextData>({} as UserContextData);
@@ -36,7 +37,7 @@ export const UserProvider: React.FC = ({ children }) => {
     if (response) {
       setUser(JSON.parse(response));
     } else {
-      setUser(JSON.parse(userMock));
+      // setUser(JSON.parse(userMock));
       await AsyncStorage.setItem(STORAGE_NAME, JSON.stringify(userMock));
     }
   }
@@ -54,8 +55,18 @@ export const UserProvider: React.FC = ({ children }) => {
     [user],
   );
 
+  const updateCredits = useCallback(
+    (credits: number) => {
+      const updateUser = { ...user };
+      updateUser.credits += credits;
+      console.log(`Crédito ${JSON.stringify(updateUser)}`);
+      setUser(updateUser);
+    },
+    [user],
+  );
+
   return (
-    <UserContext.Provider value={{ user, updateMyPlanet }}>
+    <UserContext.Provider value={{ user, updateMyPlanet, updateCredits }}>
       {children}
     </UserContext.Provider>
   );

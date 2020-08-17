@@ -1,6 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import { useRoute, useNavigation } from '@react-navigation/native';
 
+import { View } from 'react-native';
 import Page from '~/components/Page';
 import CircularProgress from '~/components/CircularProgress';
 import Countdown from '~/components/Countdown';
@@ -30,13 +31,15 @@ const Timer: React.FC = () => {
 
   return (
     <Page>
-      <MissionName>{translate(`item_${missionName}`)}</MissionName>
+      <View style={{ flex: 1, justifyContent: 'center' }}>
+        <MissionName>{translate(`item_${missionName}`)}</MissionName>
 
-      <CircularProgress timer={timer} />
+        <CircularProgress timer={timer} />
 
-      <Countdown missionValue={missionValue} timer={timer} />
+        <Countdown missionValue={missionValue} timer={timer} />
 
-      <Button title={translate('timer_button')} onPress={exitMission} />
+        <Button title={translate('timer_button')} onPress={exitMission} />
+      </View>
     </Page>
   );
 };

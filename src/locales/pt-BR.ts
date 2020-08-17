@@ -33,10 +33,13 @@ const strings = {
   month: 'Mês',
   year: 'Ano',
   all: 'Todos',
+
+  // Picker
   item_study: 'Estudar',
   item_exercise: 'Exercício',
   item_read: 'Ler',
   item_programming: 'Programar',
+  item_music: 'Música',
 };
 
 export default strings;

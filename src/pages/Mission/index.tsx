@@ -90,16 +90,14 @@ const Mission: React.FC = () => {
           marginBottom: '10%',
         }}
       >
-        {myMissions.length === 0 ? (
+        {myMissions.length === 0 && (
           <Text style={{ color: '#FFF', fontSize: 24 }}>
             Sem missões completadas
           </Text>
-        ) : (
-          {
-            /* <Chart missions={myMissions} totalMissionsHours={totalMissionsHours} /> */
-          }
         )}
       </View>
+
+      {/* <Chart missions={myMissions} totalMissionsHours={totalMissionsHours} /> */}
 
       {myMissions.length !== 0 && (
         <View

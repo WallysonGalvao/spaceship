@@ -37,6 +37,7 @@ const CircularProgress: React.FC<Props> = ({ timer }) => {
       backgroundColor="#302B4E"
       arcSweepAngle={360}
       rotation={240}
+      onAnimationComplete={() => console.log('onAnimationComplete')}
     >
       {() => <PlanetIcon icon={user.myPlanet || 'sun'} dimension={180} />}
     </AnimatedCircularProgress>
