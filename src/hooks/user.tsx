@@ -35,10 +35,13 @@ export const UserProvider: React.FC = ({ children }) => {
     // console.log(`${STORAGE_NAME} ${JSON.stringify(response)}`);
 
     if (response) {
-      setUser(JSON.parse(response));
-    } else {
-      // setUser(JSON.parse(userMock));
-      await AsyncStorage.setItem(STORAGE_NAME, JSON.stringify(userMock));
+      const parsed = JSON.parse(response);
+      if (parsed.length > 0) {
+        setUser(parsed);
+      } else {
+        setUser(userMock);
+        await AsyncStorage.setItem(STORAGE_NAME, JSON.stringify(userMock));
+      }
     }
   }
 
@@ -59,7 +62,6 @@ export const UserProvider: React.FC = ({ children }) => {
     (credits: number) => {
       const updateUser = { ...user };
       updateUser.credits += credits;
-      console.log(`Crédito ${JSON.stringify(updateUser)}`);
       setUser(updateUser);
     },
     [user],

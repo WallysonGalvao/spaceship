@@ -6,7 +6,13 @@ import React, {
   createContext,
 } from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
-import { addMinutes, getTime } from 'date-fns';
+import {
+  addMinutes,
+  isSameYear,
+  isSameMonth,
+  isSameDay,
+  startOfDay,
+} from 'date-fns';
 
 import missionsMock from '../res/missions';
 
@@ -38,11 +44,14 @@ export const MissionProvider: React.FC = ({ children }) => {
     /**
      * TODO: Filtrar missões pelo id do user
      */
-    if (response && response.length > 0) {
-      setMissions(JSON.parse(response));
-    } else {
-      setMissions(missionsMock);
-      await AsyncStorage.setItem(STORAGE_NAME, JSON.stringify(missionsMock));
+    if (response) {
+      const parsed = JSON.parse(response);
+      if (parsed.length > 0) {
+        setMissions(parsed);
+      } else {
+        setMissions(missionsMock);
+        await AsyncStorage.setItem(STORAGE_NAME, JSON.stringify(missionsMock));
+      }
     }
   }
 
@@ -52,21 +61,44 @@ export const MissionProvider: React.FC = ({ children }) => {
 
   const updateMissionTime = useCallback(
     ({ name, timer }: { name: string; timer: number }) => {
-      const index = missions.findIndex(
-        mission =>
-          mission.name.toLocaleLowerCase() === name.toLocaleLowerCase(),
+      const currentDate = startOfDay(new Date());
+
+      const sameName = missions.filter(
+        mission => mission.name.toLowerCase() === name.toLowerCase(),
       );
 
-      if (index >= 0 && timer) {
+      const sameDay = sameName
+        .filter(mission =>
+          isSameMonth(startOfDay(new Date(mission.time)), currentDate),
+        )
+        .filter(mission =>
+          isSameDay(startOfDay(new Date(mission.time)), currentDate),
+        )
+        .filter(mission =>
+          isSameYear(startOfDay(new Date(mission.time)), currentDate),
+        );
+
+      if (sameDay.length > 0) {
         const updateMissionTimes = [...missions];
+        const missionToUpdate = sameDay[0];
 
-        // Trocar esse 30 por timer
-        const currentMission = updateMissionTimes[index];
+        const date = new Date(missionToUpdate.time);
+        const dateWIthMinutesAdd = addMinutes(new Date(date), timer);
+        missionToUpdate.time = dateWIthMinutesAdd.getTime();
 
-        const result = addMinutes(currentMission.time, timer);
-        currentMission.time = getTime(result);
-        console.log(`currentMission ${JSON.stringify(currentMission)}`);
         setMissions(updateMissionTimes);
+      } else {
+        const currentMission = missions.find(
+          mission => mission.name.toLowerCase() === name.toLowerCase(),
+        );
+
+        if (currentMission) {
+          const addNewMission = { ...currentMission };
+          addNewMission.id = missions.length + 1;
+          addNewMission.time = new Date(currentDate).setMinutes(30);
+          const addMission = [...missions, addNewMission];
+          setMissions(addMission);
+        }
       }
 
       AsyncStorage.setItem(STORAGE_NAME, JSON.stringify(missions));

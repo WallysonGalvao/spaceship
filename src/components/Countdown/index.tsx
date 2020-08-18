@@ -1,7 +1,6 @@
 import React, { useCallback, useMemo } from 'react';
 import CountDown from 'react-native-countdown-component';
 import { useMission } from '~/hooks/mission';
-import { useUser } from '~/hooks/user';
 
 interface Props {
   timer: number | null;
@@ -9,7 +8,6 @@ interface Props {
 }
 
 const CustomCountdown: React.FC<Props> = ({ missionValue, timer }) => {
-  const { updateCredits } = useUser();
   const { updateMissionTime } = useMission();
 
   const seconds = useMemo(() => {
@@ -20,9 +18,8 @@ const CustomCountdown: React.FC<Props> = ({ missionValue, timer }) => {
   const handleFinish = useCallback(() => {
     if (timer) {
       updateMissionTime({ name: missionValue, timer });
-      // updateCredits(timer);
     }
-  }, [missionValue, timer, updateMissionTime, updateCredits]);
+  }, [missionValue, timer, updateMissionTime]);
 
   return (
     <CountDown

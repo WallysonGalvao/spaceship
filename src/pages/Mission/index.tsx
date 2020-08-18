@@ -31,7 +31,8 @@ const Mission: React.FC = () => {
       isSameDay(selectedDate, time),
     );
 
-    // console.log(missions);
+    // console.log(`=====================================`);
+    // console.log(`missions: ${JSON.stringify(missions, null, 2)}`);
 
     setMyMissions(missionsFiltered);
 

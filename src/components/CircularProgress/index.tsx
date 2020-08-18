@@ -1,4 +1,10 @@
-import React, { RefObject, createRef, useEffect, useMemo } from 'react';
+import React, {
+  RefObject,
+  createRef,
+  useEffect,
+  useMemo,
+  useCallback,
+} from 'react';
 import { Easing } from 'react-native';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
 
@@ -11,7 +17,7 @@ interface Props {
 }
 
 const CircularProgress: React.FC<Props> = ({ timer }) => {
-  const { user } = useUser();
+  const { user, updateCredits } = useUser();
   const circularProgressRef: RefObject<AnimatedCircularProgress> = createRef();
 
   const timing = useMemo(() => {
@@ -25,6 +31,15 @@ const CircularProgress: React.FC<Props> = ({ timer }) => {
     }
   }, [circularProgressRef, timing]);
 
+  const completed = useCallback(
+    ({ finished }) => {
+      if (finished) {
+        updateCredits(timer || 0);
+      }
+    },
+    [timer, updateCredits],
+  );
+
   return (
     <AnimatedCircularProgress
       ref={circularProgressRef}
@@ -37,7 +52,7 @@ const CircularProgress: React.FC<Props> = ({ timer }) => {
       backgroundColor="#302B4E"
       arcSweepAngle={360}
       rotation={240}
-      onAnimationComplete={() => console.log('onAnimationComplete')}
+      onAnimationComplete={completed}
     >
       {() => <PlanetIcon icon={user.myPlanet || 'sun'} dimension={180} />}
     </AnimatedCircularProgress>

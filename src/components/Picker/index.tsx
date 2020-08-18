@@ -18,7 +18,12 @@ const CustomPicker: React.FC<Props> = ({ selectedValue, setMissionName }) => {
     const filtered = missions
       .filter(mission => mission.id)
       .map(mission => ({ id: mission.id, value: mission.name }));
-    return filtered;
+
+    const values = filtered.filter(
+      (value, index, self) =>
+        self.map(x => x.value).indexOf(value.value) === index,
+    );
+    return values;
   }, [missions]);
 
   const handleValueChange = useCallback(
