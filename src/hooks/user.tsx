@@ -37,6 +37,7 @@ export const UserProvider: React.FC = ({ children }) => {
     if (response) {
       const parsed = JSON.parse(response);
       if (parsed.length > 0) {
+        console.log(JSON.stringify(response));
         setUser(parsed);
       } else {
         setUser(userMock);

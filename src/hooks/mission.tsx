@@ -44,8 +44,8 @@ export const MissionProvider: React.FC = ({ children }) => {
     /**
      * TODO: Filtrar missões pelo id do user
      */
-    if (response) {
-      const parsed = JSON.parse(response);
+    const parsed = JSON.parse(response);
+    if (parsed) {
       if (parsed.length > 0) {
         setMissions(parsed);
       } else {
