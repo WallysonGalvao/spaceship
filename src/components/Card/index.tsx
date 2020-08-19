@@ -22,6 +22,7 @@ interface Props {
   name: string;
   price: number;
   description: string;
+  dimension: number;
   selectedPlanet: string;
 }
 
@@ -29,6 +30,7 @@ const Card: React.FC<Props> = ({
   name,
   price,
   description,
+  dimension,
   selectedPlanet,
 }) => {
   const { user } = useUser();
@@ -43,14 +45,15 @@ const Card: React.FC<Props> = ({
   return (
     <Container isSelected={isSelected} isAvailable={isAvailable}>
       <ImageContainer>
-        <PlanetIcon icon={name} dimension={90} />
+        <PlanetIcon icon={name} dimension={dimension} />
       </ImageContainer>
 
       <Name>{translate(name)}</Name>
       <Description>{description}</Description>
+
       <Footer>
         <Point value={price} />
-        <CustomButton>
+        <CustomButton enabled={!isAvailable}>
           <View accessible>
             <CustomText>
               {isAvailable

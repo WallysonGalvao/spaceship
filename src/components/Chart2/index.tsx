@@ -1,12 +1,10 @@
 import React, { useMemo } from 'react';
+import Pie from 'react-native-pie';
 import { getHours, getMinutes, getSeconds } from 'date-fns';
 import * as duration from 'duration-fns';
 
-import { PieChart } from 'react-native-svg-charts';
-
 interface Props {
   missions: {
-    id: number;
     name: string;
     time: number;
     color: string;
@@ -22,26 +20,18 @@ const Chart: React.FC<Props> = ({ missions, totalMissionsHours }) => {
     return duration.toSeconds({ hours, minutes, seconds });
   };
 
-  const data = useMemo(() => {
-    return missions.map(({ id, color, time }) => {
+  const sections = useMemo(() => {
+    return missions.map(({ color, time }) => {
       const myTime = convertTimeToSeconds(time);
       return {
-        key: `pie-${id}`,
-        value: (myTime * 100) / totalMissionsHours,
-        svg: {
-          fill: color.toUpperCase(),
-        },
+        color: color.toUpperCase(),
+        percentage: (myTime * 100) / totalMissionsHours,
       };
     });
   }, [missions, totalMissionsHours]);
 
   return (
-    <PieChart
-      style={{ height: 200 }}
-      data={data}
-      padAngle={0}
-      innerRadius="40%"
-    />
+    <Pie radius={110} innerRadius={45} sections={sections} strokeCap="butt" />
   );
 };
 

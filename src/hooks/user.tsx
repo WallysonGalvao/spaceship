@@ -32,9 +32,10 @@ export const UserProvider: React.FC = ({ children }) => {
 
   async function loadData(): Promise<void> {
     const response = await AsyncStorage.getItem(STORAGE_NAME);
-    // console.log(`${STORAGE_NAME} ${JSON.stringify(response)}`);
+    console.log(`${STORAGE_NAME} ${JSON.stringify(response)}`);
+    console.log(`${STORAGE_NAME} ${typeof response}`);
 
-    if (response) {
+    /* if (response) {
       const parsed = JSON.parse(response);
       if (parsed.length > 0) {
         console.log(JSON.stringify(response));
@@ -43,7 +44,10 @@ export const UserProvider: React.FC = ({ children }) => {
         setUser(userMock);
         await AsyncStorage.setItem(STORAGE_NAME, JSON.stringify(userMock));
       }
-    }
+    } */
+
+    setUser(userMock);
+    await AsyncStorage.setItem(STORAGE_NAME, JSON.stringify(userMock));
   }
 
   useEffect(() => {
