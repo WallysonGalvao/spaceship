@@ -7,8 +7,6 @@ export const Container = styled.View`
   justify-content: space-around;
   align-items: center;
   color: #ffffff;
-
-  top: 30px;
 `;
 
 export const Text = styled.Text`

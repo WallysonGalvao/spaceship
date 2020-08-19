@@ -29,7 +29,7 @@ const Planets: React.FC = () => {
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={{ alignItems: 'center' }}
       >
-        {planets.map(({ id, name, price, description }) => (
+        {planets.map(({ id, name, price, description, dimension }) => (
           <TouchableOpacity
             key={id}
             disabled={!(user.credits >= price)}
@@ -39,6 +39,7 @@ const Planets: React.FC = () => {
               name={name}
               price={price}
               description={description}
+              dimension={dimension}
               selectedPlanet={selectedPlanet}
             />
           </TouchableOpacity>

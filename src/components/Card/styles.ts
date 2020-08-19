@@ -8,7 +8,7 @@ interface CardProps {
 
 export const Container = styled.View<CardProps>`
   width: 240px;
-  height: 380px;
+  height: 400px;
 
   background: #302b4e;
   border-radius: 24px;
@@ -34,6 +34,8 @@ export const Container = styled.View<CardProps>`
 `;
 
 export const ImageContainer = styled.View`
+  height: 120px;
+  justify-content: center;
   align-items: center;
   margin-bottom: 10px;
 `;
@@ -54,11 +56,13 @@ export const Description = styled.Text`
 `;
 
 export const Footer = styled.View`
+  width: 110%;
   flex-direction: row;
   justify-content: space-between;
-  align-items: center;
+  align-self: center;
 
-  margin-top: 40px;
+  position: absolute;
+  bottom: 30px;
 `;
 
 export const CustomButton = styled(RectButton)`

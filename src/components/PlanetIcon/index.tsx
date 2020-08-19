@@ -34,6 +34,8 @@ const Planet: React.FC<IconProps> = ({
   if (!loading && ImportedIconRef.current) {
     const { current: ImportedIcon } = ImportedIconRef;
     const dimensions = { width: dimension, height: dimension };
+    // const dimensions = { width: `${dimension}%`, height: `${dimension}%` };
+    // const dimensions = { width: dimension };
     return <ImportedIcon {...rest} {...dimensions} />;
   }
 

@@ -54,7 +54,7 @@ const CircularProgress: React.FC<Props> = ({ timer }) => {
       rotation={240}
       onAnimationComplete={completed}
     >
-      {() => <PlanetIcon icon={user.myPlanet || 'sun'} dimension={180} />}
+      {() => <PlanetIcon icon={user.myPlanet || 'mercury'} dimension={200} />}
     </AnimatedCircularProgress>
   );
 };

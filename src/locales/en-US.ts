@@ -17,7 +17,7 @@ const strings = {
   mars: 'Mars',
   mercury: 'Mercury',
   neptune: 'Neptune',
-  pluto: 'Pluto',
+  moon: 'Moon',
   saturn: 'Saturn',
   sun: 'Sun',
   uranus: 'Uranus',
