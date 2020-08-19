@@ -40,6 +40,7 @@ const strings = {
   item_read: 'Read',
   item_programming: 'Programming',
   item_music: 'Music',
+  item_paint: 'Paint',
 };
 
 export default strings;

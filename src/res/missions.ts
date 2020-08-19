@@ -71,6 +71,12 @@ const missions = [
     name: 'music',
     time: 1597723200000,
   },
+  {
+    id: 13,
+    color: '#4029b3',
+    name: 'paint',
+    time: 1595196078557,
+  },
 ];
 
 export default missions;

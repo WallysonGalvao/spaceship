@@ -2,58 +2,53 @@ import React, { useState, useMemo, useEffect, ReactElement } from 'react';
 
 import { View, Text } from 'react-native';
 
-import { isSameDay, getHours, getMinutes, getSeconds } from 'date-fns';
-import * as duration from 'duration-fns';
+import { isSameDay, isSameMonth } from 'date-fns';
+
 import Page from '~/components/Page';
 import SegmentedButtons from '~/components/SegmentedButtons';
-import PeriodControl from '~/components/PeriodControl';
 import Chart from '~/components/Chart';
 import Missions from '~/components/Missions';
+import PeriodControl from '~/components/PeriodControl';
+import PeriodControlMonth from '~/components/PeriodControlMonth';
 
 import { translate } from '~/locales';
 
 import { useMission } from '~/hooks/mission';
 import convertSecondsInHour from '~/utils/convertSecondsInHour';
+import period from '~/utils/period';
 
 import { Info, CustomText, TextLeft, Number } from './styles';
 
 const Mission: React.FC = () => {
   const { missions } = useMission();
 
-  const [selectedIndex, setSelectedIndex] = useState(0);
-  const [selectedPeriod, setSelectedPeriod] = useState('Day');
+  const [selectedIndex, setSelectedIndex] = useState(2);
+  const [selectedPeriod, setSelectedPeriod] = useState('month');
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [myMissions, setMyMissions] = useState(missions);
   const [totalMissionsHours, setTotalMissionsHours] = useState(0);
 
   useEffect(() => {
-    const missionsFiltered = missions.filter(({ time }) =>
-      isSameDay(selectedDate, time),
-    );
+    let missionsFiltered: Array<any> = [];
+    if (selectedPeriod === 'day') {
+      missionsFiltered = missions.filter(({ time }) =>
+        isSameDay(selectedDate, time),
+      );
+    }
 
-    // console.log(`=====================================`);
-    // console.log(`missions: ${JSON.stringify(missions, null, 2)}`);
+    if (selectedPeriod === 'month') {
+      const filteredByMonth = missions.filter(({ time }) =>
+        isSameMonth(selectedDate, time),
+      );
+
+      missionsFiltered = period.toMonth(filteredByMonth);
+    }
 
     setMyMissions(missionsFiltered);
 
-    // console.log(`missionsFiltered ${JSON.stringify(missionsFiltered)}`);
-
-    if (missionsFiltered.length > 0) {
-      const allHours = missionsFiltered
-        .filter(mission => mission.time)
-        .map(({ time }) => {
-          const hours = getHours(time);
-          const minutes = getMinutes(time);
-          const seconds = getSeconds(time);
-          return duration.toSeconds({ hours, minutes, seconds });
-        })
-        .reduce((a, b) => a + b);
-
-      setTotalMissionsHours(allHours);
-    } else {
-      setTotalMissionsHours(0);
-    }
-  }, [missions, selectedDate]);
+    if (missionsFiltered.length > 0)
+      setTotalMissionsHours(period.totalHours(missionsFiltered));
+  }, [missions, selectedDate, selectedPeriod]);
 
   const myTime = useMemo(() => {
     const value = convertSecondsInHour(totalMissionsHours);
@@ -78,24 +73,25 @@ const Mission: React.FC = () => {
           onTabPress={setSelectedIndex}
           handlePeriod={setSelectedPeriod}
         />
-        <View
-          style={{
-            alignItems: 'center',
-          }}
-        >
-          <PeriodControl
-            missions={missions}
-            selectedDate={selectedDate}
-            onChangeDate={setSelectedDate}
-          />
+        <View style={{ alignItems: 'center' }}>
+          {selectedPeriod === 'day' && (
+            <PeriodControl
+              missions={missions}
+              selectedDate={selectedDate}
+              onChangeDate={setSelectedDate}
+            />
+          )}
+
+          {selectedPeriod === 'month' && (
+            <PeriodControlMonth
+              missions={missions}
+              selectedDate={selectedDate}
+              onChangeDate={setSelectedDate}
+            />
+          )}
         </View>
 
-        <View
-          style={{
-            marginTop: '10%',
-            bottom: 20,
-          }}
-        >
+        <View style={{ marginTop: '10%', bottom: 20 }}>
           {myMissions.length === 0 ? (
             <Text style={{ color: '#FFF', fontSize: 24, alignSelf: 'center' }}>
               Sem missões completadas
