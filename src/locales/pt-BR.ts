@@ -29,6 +29,7 @@ const strings = {
   hour: 'hora',
   minutes: 'minutos',
   day: 'Dia',
+  days: 'dias',
   week: 'Semana',
   month: 'Mês',
   year: 'Ano',

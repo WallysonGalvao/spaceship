@@ -75,7 +75,19 @@ const missions = [
     id: 13,
     color: '#4029b3',
     name: 'paint',
-    time: 1595196078557,
+    time: 1595153418557,
+  },
+  {
+    id: 15,
+    color: '#4029b3',
+    name: 'paint',
+    time: 1595153418557,
+  },
+  {
+    id: 14,
+    color: '#4029b3',
+    name: 'paint',
+    time: 1563523818557,
   },
 ];
 

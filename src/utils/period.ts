@@ -17,11 +17,10 @@ const totalHours = (missions: Mission[]): number => {
       return duration.toSeconds({ hours, minutes });
     })
     .reduce((a, b) => a + b);
-
   return total;
 };
 
-const toMonth = (missions: Mission[]): Mission[] => {
+const group = (missions: Mission[]): Mission[] => {
   const missionsName = missions
     .filter((v, i, s) => s.map(x => x.name).indexOf(v.name) === i)
     .map(({ name }) => name)
@@ -69,4 +68,4 @@ const toMonth = (missions: Mission[]): Mission[] => {
   return missionsFiltered;
 };
 
-export default { toMonth, totalHours };
+export default { group, totalHours };

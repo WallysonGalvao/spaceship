@@ -2,14 +2,15 @@ import React, { useState, useMemo, useEffect, ReactElement } from 'react';
 
 import { View, Text } from 'react-native';
 
-import { isSameDay, isSameMonth } from 'date-fns';
+import { isSameDay, isSameMonth, isSameYear } from 'date-fns';
 
 import Page from '~/components/Page';
 import SegmentedButtons from '~/components/SegmentedButtons';
 import Chart from '~/components/Chart';
 import Missions from '~/components/Missions';
-import PeriodControl from '~/components/PeriodControl';
-import PeriodControlMonth from '~/components/PeriodControlMonth';
+import PeriodControlDay from '~/components/PeriodControl/day';
+import PeriodControlMonth from '~/components/PeriodControl/month';
+import PeriodControlYear from '~/components/PeriodControl/year';
 
 import { translate } from '~/locales';
 
@@ -41,7 +42,19 @@ const Mission: React.FC = () => {
         isSameMonth(selectedDate, time),
       );
 
-      missionsFiltered = period.toMonth(filteredByMonth);
+      missionsFiltered = period.group(filteredByMonth);
+    }
+
+    if (selectedPeriod === 'year') {
+      const filteredByYear = missions.filter(({ time }) =>
+        isSameYear(selectedDate, time),
+      );
+
+      missionsFiltered = period.group(filteredByYear);
+    }
+
+    if (selectedPeriod === 'all') {
+      missionsFiltered = period.group(missions);
     }
 
     setMyMissions(missionsFiltered);
@@ -63,7 +76,15 @@ const Mission: React.FC = () => {
     return <CustomText />;
   };
 
-  const { hours, minutes } = myTime;
+  const DayText = ({ days }: { days: number }): ReactElement => {
+    if (days > 0) {
+      if (days > 1) return <CustomText> {translate('days')} </CustomText>;
+      return <CustomText> {translate('day').toLowerCase()} </CustomText>;
+    }
+    return <CustomText />;
+  };
+
+  const { days, hours, minutes } = myTime;
 
   return (
     <Page title={translate('mission_title')}>
@@ -75,7 +96,7 @@ const Mission: React.FC = () => {
         />
         <View style={{ alignItems: 'center' }}>
           {selectedPeriod === 'day' && (
-            <PeriodControl
+            <PeriodControlDay
               missions={missions}
               selectedDate={selectedDate}
               onChangeDate={setSelectedDate}
@@ -89,9 +110,22 @@ const Mission: React.FC = () => {
               onChangeDate={setSelectedDate}
             />
           )}
+
+          {selectedPeriod === 'year' && (
+            <PeriodControlYear
+              missions={missions}
+              selectedDate={selectedDate}
+              onChangeDate={setSelectedDate}
+            />
+          )}
         </View>
 
-        <View style={{ marginTop: '10%', bottom: 20 }}>
+        <View
+          style={{
+            marginTop: selectedPeriod === 'all' ? '25%' : '10%',
+            bottom: 20,
+          }}
+        >
           {myMissions.length === 0 ? (
             <Text style={{ color: '#FFF', fontSize: 24, alignSelf: 'center' }}>
               Sem missões completadas
@@ -119,6 +153,8 @@ const Mission: React.FC = () => {
             <Info>
               <TextLeft>{translate('mission_total_time')}</TextLeft>
               <CustomText>
+                {days > 0 && <Number>{days}</Number>}
+                <DayText days={days} />
                 {hours > 0 && <Number>{hours}</Number>}
                 <HourText hour={hours} />
                 {minutes > 0 && <Number>{minutes}</Number>}
