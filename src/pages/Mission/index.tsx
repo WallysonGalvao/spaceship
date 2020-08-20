@@ -2,13 +2,14 @@ import React, { useState, useMemo, useEffect, ReactElement } from 'react';
 
 import { View, Text } from 'react-native';
 
-import { isSameDay, isSameMonth, isSameYear } from 'date-fns';
+import { isSameDay, isSameMonth, isSameYear, isSameWeek } from 'date-fns';
 
 import Page from '~/components/Page';
 import SegmentedButtons from '~/components/SegmentedButtons';
 import Chart from '~/components/Chart';
 import Missions from '~/components/Missions';
 import PeriodControlDay from '~/components/PeriodControl/day';
+import PeriodControlWeek from '~/components/PeriodControl/week';
 import PeriodControlMonth from '~/components/PeriodControl/month';
 import PeriodControlYear from '~/components/PeriodControl/year';
 
@@ -37,20 +38,21 @@ const Mission: React.FC = () => {
       );
     }
 
-    if (selectedPeriod === 'month') {
-      const filteredByMonth = missions.filter(({ time }) =>
-        isSameMonth(selectedDate, time),
+    if (selectedPeriod === 'week') {
+      const filteredByWeek = missions.filter(({ time }) =>
+        isSameWeek(selectedDate, time),
       );
 
-      missionsFiltered = period.group(filteredByMonth);
+      missionsFiltered = period.group(filteredByWeek);
     }
 
-    if (selectedPeriod === 'year') {
-      const filteredByYear = missions.filter(({ time }) =>
-        isSameYear(selectedDate, time),
-      );
+    if (selectedPeriod === 'month' || selectedPeriod === 'year') {
+      const filtered = missions.filter(({ time }) => {
+        if (selectedPeriod === 'month') return isSameMonth(selectedDate, time);
+        return isSameYear(selectedDate, time);
+      });
 
-      missionsFiltered = period.group(filteredByYear);
+      missionsFiltered = period.group(filtered);
     }
 
     if (selectedPeriod === 'all') {
@@ -97,6 +99,14 @@ const Mission: React.FC = () => {
         <View style={{ alignItems: 'center' }}>
           {selectedPeriod === 'day' && (
             <PeriodControlDay
+              missions={missions}
+              selectedDate={selectedDate}
+              onChangeDate={setSelectedDate}
+            />
+          )}
+
+          {selectedPeriod === 'week' && (
+            <PeriodControlWeek
               missions={missions}
               selectedDate={selectedDate}
               onChangeDate={setSelectedDate}
