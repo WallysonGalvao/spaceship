@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "988985177431",
+    "firebase_url": "https://spaceship-c4598.firebaseio.com",
+    "project_id": "spaceship-c4598",
+    "storage_bucket": "spaceship-c4598.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:988985177431:android:a93d3dcb0d028aa4acba12",
+        "android_client_info": {
+          "package_name": "com.spaceship"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "988985177431-8tdlj0c2mcqoivmp6k1v9vhmh0l14ear.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCZWPf6TXcT6cEJd3aYvNXP0gGp209BMo4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "988985177431-8tdlj0c2mcqoivmp6k1v9vhmh0l14ear.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

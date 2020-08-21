@@ -5,7 +5,6 @@ import React, {
   useContext,
   createContext,
 } from 'react';
-import AsyncStorage from '@react-native-community/async-storage';
 import {
   addMinutes,
   isSameYear,
@@ -13,6 +12,8 @@ import {
   isSameDay,
   startOfDay,
 } from 'date-fns';
+import AsyncStorage from '@react-native-community/async-storage';
+import { STORAGE_MISSIONS } from '~/config/constants';
 
 import missionsMock from '../res/missions';
 
@@ -33,15 +34,13 @@ const MissionContext = createContext<MissionContextData>(
   {} as MissionContextData,
 );
 
-const STORAGE_NAME = '@spaceship:missions';
-
 export const MissionProvider: React.FC = ({ children }) => {
   const [missions, setMissions] = useState<Mission[]>([]);
 
   async function loadData(): Promise<void> {
-    const response = await AsyncStorage.getItem(STORAGE_NAME);
-    console.log(`${STORAGE_NAME} ${JSON.stringify(response)}`);
-    console.log(`${STORAGE_NAME} ${typeof response}`);
+    const response = await AsyncStorage.getItem(STORAGE_MISSIONS);
+    console.log(`${STORAGE_MISSIONS} ${JSON.stringify(response)}`);
+    console.log(`${STORAGE_MISSIONS} ${typeof response}`);
     /**
      * TODO: Filtrar missões pelo id do user
      */
@@ -51,11 +50,11 @@ export const MissionProvider: React.FC = ({ children }) => {
         setMissions(parsed);
       } else {
         setMissions(missionsMock);
-        await AsyncStorage.setItem(STORAGE_NAME, JSON.stringify(missionsMock));
+        await AsyncStorage.setItem(STORAGE_MISSIONS, JSON.stringify(missionsMock));
       }
     } */
     setMissions(missionsMock);
-    await AsyncStorage.setItem(STORAGE_NAME, JSON.stringify(missionsMock));
+    await AsyncStorage.setItem(STORAGE_MISSIONS, JSON.stringify(missionsMock));
   }
 
   useEffect(() => {
@@ -104,7 +103,7 @@ export const MissionProvider: React.FC = ({ children }) => {
         }
       }
 
-      AsyncStorage.setItem(STORAGE_NAME, JSON.stringify(missions));
+      AsyncStorage.setItem(STORAGE_MISSIONS, JSON.stringify(missions));
     },
     [missions],
   );

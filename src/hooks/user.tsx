@@ -6,6 +6,7 @@ import React, {
   createContext,
 } from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
+import { STORAGE_USER } from '~/config/constants';
 
 import userMock from '../res/user';
 
@@ -25,15 +26,13 @@ interface UserContextData {
 
 const UserContext = createContext<UserContextData>({} as UserContextData);
 
-const STORAGE_NAME = '@spaceship:user';
-
 export const UserProvider: React.FC = ({ children }) => {
   const [user, setUser] = useState<User>({} as User);
 
   async function loadData(): Promise<void> {
-    const response = await AsyncStorage.getItem(STORAGE_NAME);
-    console.log(`${STORAGE_NAME} ${JSON.stringify(response)}`);
-    console.log(`${STORAGE_NAME} ${typeof response}`);
+    const response = await AsyncStorage.getItem(STORAGE_USER);
+    console.log(`${STORAGE_USER} ${JSON.stringify(response)}`);
+    console.log(`${STORAGE_USER} ${typeof response}`);
 
     /* if (response) {
       const parsed = JSON.parse(response);
@@ -42,12 +41,12 @@ export const UserProvider: React.FC = ({ children }) => {
         setUser(parsed);
       } else {
         setUser(userMock);
-        await AsyncStorage.setItem(STORAGE_NAME, JSON.stringify(userMock));
+        await AsyncStorage.setItem(STORAGE_USER, JSON.stringify(userMock));
       }
     } */
 
     setUser(userMock);
-    await AsyncStorage.setItem(STORAGE_NAME, JSON.stringify(userMock));
+    await AsyncStorage.setItem(STORAGE_USER, JSON.stringify(userMock));
   }
 
   useEffect(() => {
