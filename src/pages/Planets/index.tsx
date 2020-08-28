@@ -3,7 +3,6 @@ import { ScrollView } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import AsyncStorage from '@react-native-community/async-storage';
 import firestore from '@react-native-firebase/firestore';
-import auth from '@react-native-firebase/auth';
 
 import { STORAGE_PLANETS } from '~/config/constants';
 import { translate } from '~/locales';
@@ -65,8 +64,6 @@ const Planets: React.FC = () => {
   }, [getFromFirestore]);
 
   useEffect(() => {
-    auth().signInWithEmailAndPassword('wallyson.galvao@gmail.com', '123456');
-
     loadPlanets();
   }, [loadPlanets]);
 

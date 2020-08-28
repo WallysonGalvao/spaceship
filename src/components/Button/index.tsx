@@ -1,21 +1,16 @@
 import React from 'react';
+import { RectButtonProperties } from 'react-native-gesture-handler';
 
-import { View } from 'react-native';
-import { CustomButton, Title } from './styles';
+import { Container, ButtonText } from './styles';
 
-interface Props {
-  title: string;
-  onPress(): void;
+interface ButtonProps extends RectButtonProperties {
+  children: string;
 }
 
-const Button: React.FC<Props> = ({ title, onPress }) => {
-  return (
-    <CustomButton onPress={onPress}>
-      <View accessible>
-        <Title>{title}</Title>
-      </View>
-    </CustomButton>
-  );
-};
+const Button: React.FC<ButtonProps> = ({ children, ...rest }) => (
+  <Container {...rest}>
+    <ButtonText>{children}</ButtonText>
+  </Container>
+);
 
 export default Button;

@@ -5,14 +5,13 @@ import React, {
   useContext,
   createContext,
 } from 'react';
-import AsyncStorage from '@react-native-community/async-storage';
-import { STORAGE_USER } from '~/config/constants';
+import firestore from '@react-native-firebase/firestore';
 
-import userMock from '../res/user';
+import AsyncStorage from '@react-native-community/async-storage';
+import { STORAGE_USER, STORAGE_AUTH } from '~/config/constants';
 
 interface User {
-  username: string;
-  missions: Array<number>;
+  name: string;
   planets: Array<number>;
   myPlanet: string;
   credits: number;
@@ -20,6 +19,7 @@ interface User {
 
 interface UserContextData {
   user: User;
+  updateUser(user: User): void;
   updateMyPlanet(planet: string): void;
   updateCredits(credit: number): void;
 }
@@ -32,25 +32,27 @@ export const UserProvider: React.FC = ({ children }) => {
   async function loadData(): Promise<void> {
     const response = await AsyncStorage.getItem(STORAGE_USER);
     console.log(`${STORAGE_USER} ${JSON.stringify(response)}`);
-    console.log(`${STORAGE_USER} ${typeof response}`);
 
-    /* if (response) {
+    if (response) {
       const parsed = JSON.parse(response);
-      if (parsed.length > 0) {
-        console.log(JSON.stringify(response));
-        setUser(parsed);
-      } else {
-        setUser(userMock);
-        await AsyncStorage.setItem(STORAGE_USER, JSON.stringify(userMock));
-      }
-    } */
-
-    setUser(userMock);
-    await AsyncStorage.setItem(STORAGE_USER, JSON.stringify(userMock));
+      if (parsed) setUser(parsed);
+    }
   }
 
   useEffect(() => {
     loadData();
+  }, []);
+
+  const updateFirabase = useCallback(async currentUser => {
+    const response = await AsyncStorage.getItem(STORAGE_AUTH);
+
+    if (response) {
+      const { auth } = JSON.parse(response);
+      firestore()
+        .collection('users')
+        .doc(auth.email)
+        .update({ ...currentUser });
+    }
   }, []);
 
   const updateMyPlanet = useCallback(
@@ -58,8 +60,9 @@ export const UserProvider: React.FC = ({ children }) => {
       const updateUser = { ...user };
       updateUser.myPlanet = planet;
       setUser(updateUser);
+      updateFirabase(updateUser);
     },
-    [user],
+    [user, updateFirabase],
   );
 
   const updateCredits = useCallback(
@@ -67,12 +70,19 @@ export const UserProvider: React.FC = ({ children }) => {
       const updateUser = { ...user };
       updateUser.credits += credits;
       setUser(updateUser);
+      updateFirabase(updateUser);
     },
-    [user],
+    [user, updateFirabase],
   );
 
+  const updateUser = useCallback(async (currentUser: User) => {
+    setUser(currentUser);
+  }, []);
+
   return (
-    <UserContext.Provider value={{ user, updateMyPlanet, updateCredits }}>
+    <UserContext.Provider
+      value={{ user, updateUser, updateMyPlanet, updateCredits }}
+    >
       {children}
     </UserContext.Provider>
   );

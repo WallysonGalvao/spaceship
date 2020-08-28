@@ -38,7 +38,7 @@ const Timer: React.FC = () => {
 
         <Countdown missionValue={missionValue} timer={timer} />
 
-        <Button title={translate('timer_button')} onPress={exitMission} />
+        <Button onPress={exitMission}>{translate('timer_button')}</Button>
       </View>
     </Page>
   );

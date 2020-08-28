@@ -27,7 +27,7 @@ const Home: React.FC = () => {
   return (
     <Page>
       <Name>
-        {translate('home_welcome')} {user.username}!
+        {translate('home_welcome')} {user.name}!
       </Name>
       <Question>{translate('home_question')}</Question>
 
@@ -37,10 +37,9 @@ const Home: React.FC = () => {
 
       <Carousel onChangeItem={setSelectedTimer} />
 
-      <Button
-        title={translate('home_button')}
-        onPress={() => navigation.navigate('Timer', { ...params })}
-      />
+      <Button onPress={() => navigation.navigate('Timer', { ...params })}>
+        {translate('home_button')}
+      </Button>
     </Page>
   );
 };
